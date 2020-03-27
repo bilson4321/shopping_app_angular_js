@@ -1,4 +1,6 @@
 const gulp = require('gulp');
+const concat=require('gulp-concat');
+const browserSync=require('browser-sync').create();
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const webpackConfig = require('./webpack.config.js');
@@ -21,6 +23,12 @@ gulp.task('js', () => {
     .pipe(gulp.dest('./build/js'));
 });
 
+gulp.task('style',()=>{
+  return gulp.src('./src/styles/*.css')
+          .pipe(concat("style.css"))
+          .pipe(gulp.dest("build/styles/"))
+})
+
 gulp.task('view',()=>{
     return gulp.src("src/index.html")
          .pipe(gulp.dest("build/"));
@@ -30,6 +38,10 @@ gulp.task('watch',function(){
   gulp.watch(
     ["src/scripts/main.js","src/scripts/**/*.js"],
     gulp.series("js")
+  );
+  gulp.watch(
+    ["src/styles/*.css"],
+    gulp.series("style")
   );
   gulp.watch(
     ["src/index.html"],

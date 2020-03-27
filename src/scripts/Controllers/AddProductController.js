@@ -1,13 +1,12 @@
-export default function($scope,Product)
+export default function($scope,ProductService)
 {
     $scope.product_name='';
     $scope.product_price='';
     $scope.submit=function()
     {
-        var product = new Product();
-            product.name = $scope.product_name;
-            product.price=$scope.product_price;
-            product.$save();
-        console.log("send");
+       ProductService.get({productID:'5e7c6b00e9a23f143fc9fdfc'},function(data){
+           $scope.product_name=data.Product.name
+       })
     }
+    
 }
