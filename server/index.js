@@ -28,4 +28,6 @@ app.use(/^((?!(api)).)*/, (req, res) => {
 
 app.use('/api',mainRoutes);
 
-app.listen(4000);
+app.listen(4000, function(){
+    console.log('app listening on port 3000!');
+  })
