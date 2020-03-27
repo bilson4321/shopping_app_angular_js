@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.06em;
+}
+.container
+{
+    margin: 0 auto;
+    max-width: 1220px;
+}
+.card{
+    display: inline-block;
+    width: 400px;
+    margin: 10px;
+}
+.image{
+    display: inline-block;
+    width: 100%;
+}
+ul li 
+{
+    display: inline-block;
+}
