@@ -13,6 +13,7 @@
     "babel-loader": "^8.1.0",
     "babel-preset-latest": "^6.24.1",
     "gulp": "^4.0.2",
+    "gulp-live-server": "0.0.31",
     "gulp-nodemon": "^2.5.0",
     "webpack": "^4.42.1",
     "webpack-stream": "^5.2.1"

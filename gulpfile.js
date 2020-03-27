@@ -4,13 +4,14 @@ const webpackStream = require('webpack-stream');
 const webpackConfig = require('./webpack.config.js');
 const nodemon=require('gulp-nodemon');
 
+gulp.task('start',()=>{
+  gulp.parallel('server','watch')();
+});
 
-const server=require('./server/index');
-
-gulp.task('serve',()=>{
-  //server.listen(5000);
-  nodemon({
-        script:'./server/index.js'
+gulp.task('server',()=>{
+  return nodemon({
+        script:'./server/index.js',
+        watch:'./server/'
   })
 });
 
@@ -23,10 +24,6 @@ gulp.task('js', () => {
 gulp.task('view',()=>{
     return gulp.src("src/index.html")
          .pipe(gulp.dest("build/"));
-});
-
-gulp.task('build', () => {
-  gulp.series('view','js')();
 });
 
 gulp.task('watch',function(){
