@@ -115,6 +115,27 @@ var productController={
                         error:err.message
                     })
                 })
+    },
+    searchProduct:function(req,res)
+    {
+        var productName=req.params.productName;
+        var query={"name":{"$regex":productName}};
+        console.log(query);
+        Product.find(query)
+                .then((products)=>{
+                    return res.status(200).json({
+                        success:true,
+                        message:"Product of query"+productName,
+                        Products:products
+                    })
+                })
+                .catch((err)=>{
+                    res.status(500).json({
+                        success:false,
+                        message:"Server errror,Please try again",
+                        error:err.message
+                    })
+                })
     }
 }
 

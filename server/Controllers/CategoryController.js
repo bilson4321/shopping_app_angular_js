@@ -32,8 +32,7 @@ var categroyController={
     getAllCategory:function(req,res)
     {
         Category.find()
-                .populate('items')
-                .select('_id name description items')
+                .select('_id name description')
                 .then((allCategory)=>{
                     return res.status(200).json({
                         success:true,

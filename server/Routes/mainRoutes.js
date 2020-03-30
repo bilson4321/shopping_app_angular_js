@@ -17,6 +17,7 @@ router.get('/product',productController.getAllProduct);
 router.get('/product/:productID',productController.findById);
 router.patch('/product/:productID',productController.updateProduct);
 router.delete('/product/:productID',productController.deleteProduct);
+router.get('/product/search/:productName',productController.searchProduct);
 
 router.post('/user',userController.createUser);
 router.get('/user',userController.getAllUser);

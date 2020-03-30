@@ -1,7 +1,13 @@
 var homePageComponent={
+    controller:'HomePageController',
     template:`
-            <div>
-                <h1>This is home</h1>
+            <div class="banner">
+                <img src="/images/banner.jpg" class="image"></img>
+            </div>
+            <div class="container">
+                <ul>
+                    <li ng-repeat='p in products'><card item='p'></card></li>
+                </ul>
             </div>
             `
 }
