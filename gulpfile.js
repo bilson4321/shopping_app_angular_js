@@ -34,6 +34,11 @@ gulp.task('view',()=>{
          .pipe(gulp.dest("build/"));
 });
 
+gulp.task('images',()=>{
+    return gulp.src("src/images/*.*")
+         .pipe(gulp.dest("build/images/"));
+});
+
 gulp.task('watch',function(){
   gulp.watch(
     ["src/scripts/main.js","src/scripts/**/*.js"],
@@ -46,6 +51,10 @@ gulp.task('watch',function(){
   gulp.watch(
     ["src/index.html"],
     gulp.series("view")
+  );
+  gulp.watch(
+    ["src/images/*.*"],
+    gulp.series("images")
   );
 })
 //not working
