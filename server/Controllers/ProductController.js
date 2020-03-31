@@ -120,7 +120,6 @@ var productController={
     {
         var productName=req.params.productName;
         var query={"name":{"$regex":productName}};
-        console.log(query);
         Product.find(query)
                 .then((products)=>{
                     return res.status(200).json({

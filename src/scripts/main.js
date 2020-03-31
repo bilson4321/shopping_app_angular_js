@@ -9,15 +9,16 @@ import AppController from './Controllers/AppController';
 import HomePageController from './Controllers/HomePageController';
 import CardController from './Controllers/CardController';
 import ProductDetailController from './Controllers/ProductDetailController';
-import SearchController from './Controllers/SearchController';
 import SearchPageController from './Controllers/SearchPageController';
+import LoginController from './Controllers/LoginController';
 
 import appComponent from './Components/AppComponent';
 import homePageComponent from './Components/HomePageComponent';
 import cardComponent from './Components/CardComponent';
 import productDetailComponent from './Components/ProductDetailComponent';
-import searchComponent from './Components/SearchComponent';
 import searchPageComponent from './Components/SearchPageComponent';
+import loginComponent from './Components/LoginComponent';
+
 
 
 
@@ -50,6 +51,11 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
                 productName:'value'
             }
         })
+        .state('login',{
+            url:'/login',
+            template:"<login-page><login-page>"
+            }
+        )
         .state('Auth',{
             url:'/auth',
             template:"<h1>not pasing</h1>",
@@ -75,12 +81,12 @@ app.controller("AppController",['$scope','CategoryService',AppController])
     .controller("HomePageController",['$scope','ProductService',HomePageController])
     .controller("CardController",['$scope',CardController])
     .controller("ProductDetailController",['$scope','$stateParams','ProductService',ProductDetailController])
-    .controller("SearchController",['$scope',SearchController])
-    .controller("SearchPageController",['$scope','$stateParams','ProductService',SearchPageController]);
+    .controller("SearchPageController",['$scope','$stateParams','ProductService',SearchPageController])
+    .controller("LoginController",["$scope","$http",LoginController]);
 
 app.component("app",appComponent)
     .component("home",homePageComponent)
     .component("card",cardComponent)
     .component("productDetail",productDetailComponent)
-    .component("searchBar",searchComponent)
-    .component("searchPage",searchPageComponent);
+    .component("searchPage",searchPageComponent)
+    .component("loginPage",loginComponent);

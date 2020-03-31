@@ -2,39 +2,45 @@ var mongoose=require('mongoose');
 
 var User=require('./../Models/User');
 
+var bcryptService=require('../Services/Bcrypt')
+
 var userController={
     createUser:function(req,res)
     {
-        const user=new User({
-            _id:mongoose.Types.ObjectId(),
-            firstName:req.body.firstName,
-            lastName:req.body.lastName,
-            mobile:req.body.mobile,
-            email:req.body.email,
-            address:req.body.address,
-            role:req.body.role
-        })
-        return user
-                .save()
-                .then((newUser)=>{
-                    return res.status(201).json({
-                        success:true,
-                        message:"New User Added",
-                        user:newUser
-                    });
-                })
-                .catch((error)=>{
-                    res.status(500).json({
-                        success:false,
-                        message:"Server error,Please try agian",
-                        error:error.message
+        bcryptService.hashPassword(req.body.password).then((hashedPass)=>{
+            const user=new User({
+                _id:mongoose.Types.ObjectId(),
+                firstName:req.body.firstName,
+                lastName:req.body.lastName,
+                mobile:req.body.mobile,
+                email:req.body.email,
+                password:hashedPass,
+                address:req.body.address,
+                role:req.body.role
+            })
+            return user
+                    .save()
+                    .then((newUser)=>{
+                        return res.status(201).json({
+                            success:true,
+                            message:"New User Added",
+                            user:newUser
+                        });
                     })
-                })
+                    .catch((error)=>{
+                        res.status(500).json({
+                            success:false,
+                            message:"Server error,Please try agian",
+                            error:error.message
+                        })
+                    })
+        });
+        
     },
     getAllUser:function(req,res)
     {
         User.find()
-            .select('_id firstName lastName email phone role address')
+            .select('_id firstName lastName email phone role address password')
             .then((allUser)=>{
                 return res.status(200).json({
                     success:true,
