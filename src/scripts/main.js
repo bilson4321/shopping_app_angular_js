@@ -49,13 +49,27 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
             params:{
                 productName:'value'
             }
+        })
+        .state('Auth',{
+            url:'/auth',
+            template:"<h1>not pasing</h1>",
+            authenticate:true
         });
         
     $urlRouterProvider.otherwise('/home');
-}])
+}]);
 
 app.service("ProductService",['$http',ProductService])
     .service("CategoryService",[`$http`,CategoryService]);
+
+app.run(['$transitions',function($transitions){
+    $transitions.onStart({},function(transition){
+        if(transition.to().authenticate)
+        {
+            return transition.router.stateService.target('home');
+        }
+    })
+}]);
 
 app.controller("AppController",['$scope','CategoryService',AppController])
     .controller("HomePageController",['$scope','ProductService',HomePageController])

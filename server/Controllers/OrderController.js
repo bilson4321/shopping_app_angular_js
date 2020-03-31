@@ -1,25 +1,25 @@
 var mongoose=require('mongoose');
 
-var Sale=require('./../Models/Sale');
-var Product=require('./../Models/Product');
-var User=require('./../Models/User');
+var Order=require('./../Models/Order');
+var Product=require('../Models/Product');
+var User=require('../Models/User');
 
-var saleController={
-    createSale:function(req,res)
+var orderController={
+    createOrder:function(req,res)
     {
-        const sale=new Sale({
+        const order=new Order({
             _id:mongoose.Types.ObjectId(),
             user: req.body.user,
             product: req.body.product,
             quantity: req.body.quantity,
             date: '2020/03/26'
         })
-        sale.save()
-            .then((newSales)=>{
+        order.save()
+            .then((newOrder)=>{
                 return res.status(201).json({
                     success:true,
-                    message:"New Sales Added",
-                    sale:newSales
+                    message:"New Order Added",
+                    order:newOrder
                 })
             })
             .catch((error)=>{
@@ -30,17 +30,17 @@ var saleController={
                 })
             });
     },
-    getAllSales:function(req,res)
+    getAllOrder:function(req,res)
     {
-        Sale.find()
+        Order.find()
             .select(' _id user product quantity date')
             .populate('user')
             .populate('product')
-            .then((allSales)=>{
+            .then((allOrder)=>{
                 return res.status(200).json({
                     success:true,
-                    message:"List of all sales",
-                    sales:allSales
+                    message:"List of all Order",
+                    orders:allOrder
                 }) 
             })
             .catch((err)=>{
@@ -51,26 +51,26 @@ var saleController={
                 })
             })
     },
-    getSalesById:function(req,res)
+    getOrderById:function(req,res)
     {
-        const id=req.params.salesID;
-        Sale.findById(id)
+        const id=req.params.orderID;
+        Order.findById(id)
             .populate('user')
             .populate('product')
-            .then((sale)=>{
+            .then((order)=>{
                 res.status(200).json({
                     success:true,
-                    message:"sales of id",
-                    Sale:sale
+                    message:"Order of id",
+                    Order:order
                 })
             })
             .catch((err)=>{
                 res.status(500).json({
                     success:false,
-                    message:"Sale doesn;t exist",
+                    message:"Order doesnt exist",
                     error:err.message
                 })
             })
     }
 }
-module.exports=saleController;
+module.exports=orderController;

@@ -4,7 +4,7 @@ var router=express.Router();
 var categoryController=require('../Controllers/CategoryController');
 var productController=require('./../Controllers/ProductController');
 var userController=require('./../Controllers/UserController');
-var saleController=require('./../Controllers/SalesController');
+var orderController=require('./../Controllers/OrderController');
 
 router.post('/category',categoryController.createCategory);
 router.get('/category',categoryController.getAllCategory);
@@ -25,8 +25,8 @@ router.get('/user/:userID',userController.getUserById);
 router.patch('/user/:userID',userController.updateUser);
 router.delete('/user/:userID',userController.deleteUser);
 
-router.post('/sale',saleController.createSale);
-router.get('/sale',saleController.getAllSales);
-router.get('/sale/:saleID',saleController.getSalesById);
+router.post('/order',orderController.createOrder);
+router.get('/order',orderController.getAllOrder);
+router.get('/order/:orderID',orderController.getOrderById);
 
 module.exports=router;

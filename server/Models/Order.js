@@ -2,7 +2,7 @@ var mongoose=require('mongoose');
 
 mongoose.Promise=global.Promise;
 
-const salesSchema=new mongoose.Schema({
+const orderSchema=new mongoose.Schema({
     _id:mongoose.Schema.Types.ObjectId,
     product:{
         type: mongoose.Schema.Types.ObjectId,
@@ -21,4 +21,4 @@ const salesSchema=new mongoose.Schema({
         required:true,
     }
 })
-module.exports=mongoose.model('Sale',salesSchema);
+module.exports=mongoose.model('Order',orderSchema);
