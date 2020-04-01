@@ -4,6 +4,7 @@ import '@uirouter/angularjs';
 
 import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
+import AuthService from './Services/AuthService';
 
 import AppController from './Controllers/AppController';
 import HomePageController from './Controllers/HomePageController';
@@ -11,6 +12,13 @@ import CardController from './Controllers/CardController';
 import ProductDetailController from './Controllers/ProductDetailController';
 import SearchPageController from './Controllers/SearchPageController';
 import LoginController from './Controllers/LoginController';
+import AdminDashboardController from './Controllers/AdminDashboardController';
+import AddProductController from './Controllers/AddProductController';
+import ViewProductController from './Controllers/ViewProductController';
+import EditProductController from './Controllers/EditProductController';
+import AddCategoryController from './Controllers/AddCategoryController';
+import ViewCategoryController from './Controllers/ViewCategoryController';
+import EditCategoryController from './Controllers/EditCategoryController';
 
 import appComponent from './Components/AppComponent';
 import homePageComponent from './Components/HomePageComponent';
@@ -18,6 +26,14 @@ import cardComponent from './Components/CardComponent';
 import productDetailComponent from './Components/ProductDetailComponent';
 import searchPageComponent from './Components/SearchPageComponent';
 import loginComponent from './Components/LoginComponent';
+import adminDashboardComponent from './Components/AdminDashboardComponent';
+import addProductComponent from './Components/AddProductComponent';
+import viewProductComponent from './Components/ViewProductComponent';
+import editProductComponent from './Components/EditProductComponent';
+import addCategoryComponent from './Components/AddCategoryComponent';
+import viewCategoryComponent from './Components/ViewCategoryComponent';
+import editCategoryComponent from './Components/EditCategoryComponent';
+
 
 
 
@@ -31,15 +47,18 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
     $stateProvider
         .state('home',{
             url:'/home',
-            template:"<home></home>"
+            template:"<home></home>",
+            authenticate:false
         })
         .state('category',{
             url:"/category?categoryName",
-            template:"<h1>Category</h1>"
+            template:"<h1>Category</h1>",
+            authenticate:false
         })
         .state('detail',{
             url:'/detail?productID',
             template:"<product-detail></product-detail>",
+            authenticate:false,
             params:{
                 productID:'value'
             }
@@ -53,9 +72,51 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
         })
         .state('login',{
             url:'/login',
-            template:"<login-page><login-page>"
+            template:"<login-page></login-page>",
+            authenticate:false
             }
         )
+        .state('admin',{
+            url:'/admin',
+            template:"<admin-dashboard></admin-dashboard>",
+            authenticate:true
+        })
+        .state('addProduct',{
+            url:'/addProduct',
+            template:"<add-product></add-product>",
+            authenticate:true
+        })
+        .state('editProduct',{
+            url:'/editProduct?productID',
+            template:"<edit-product></edit-product>",
+            authenticate:true,
+            params:{
+                productID:'value'
+            }
+        })
+        .state('viewProduct',{
+            url:'/viewProduct',
+            template:"<view-product></view-product>",
+            authenticate:true
+        })
+        .state('addCategory',{
+            url:'/addCategory',
+            template:"<add-category></add-category>",
+            authenticate:true
+        })
+        .state('viewCategory',{
+            url:'/viewCategory',
+            template:"<view-category></view-category>",
+            authenticate:true
+        })
+        .state('editCategory',{
+            url:'/editCategory?categoryID',
+            template:"<edit-category></edit-category>",
+            authenticate:true,
+            params:{
+                categoryID:'value'
+            }
+        })
         .state('Auth',{
             url:'/auth',
             template:"<h1>not pasing</h1>",
@@ -66,27 +127,43 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
 }]);
 
 app.service("ProductService",['$http',ProductService])
-    .service("CategoryService",[`$http`,CategoryService]);
+    .service("CategoryService",[`$http`,CategoryService])
+    .service("AuthService",AuthService);
 
 app.run(['$transitions',function($transitions){
     $transitions.onStart({},function(transition){
-        if(transition.to().authenticate)
+        var token=localStorage.hasOwnProperty('Token');
+        if(transition.to().authenticate&&!token)
         {
-            return transition.router.stateService.target('home');
+            return transition.router.stateService.target('login');
         }
     })
 }]);
 
-app.controller("AppController",['$scope','CategoryService',AppController])
+app.controller("AppController",['$scope','CategoryService','$state',AppController])
     .controller("HomePageController",['$scope','ProductService',HomePageController])
     .controller("CardController",['$scope',CardController])
     .controller("ProductDetailController",['$scope','$stateParams','ProductService',ProductDetailController])
     .controller("SearchPageController",['$scope','$stateParams','ProductService',SearchPageController])
-    .controller("LoginController",["$scope","$http",LoginController]);
+    .controller("LoginController",["$scope","$http","$state",LoginController])
+    .controller("AdminDashboardController",["$scope",AdminDashboardController])
+    .controller("AddProductController",['$scope','ProductService','CategoryService',AddProductController])
+    .controller("ViewProductController",['$scope','ProductService',ViewProductController])
+    .controller("EditProductController",['$scope','$stateParams','ProductService','CategoryService',EditProductController])
+    .controller("AddCategoryController",["$scope","CategoryService",AddCategoryController])
+    .controller("ViewCategoryController",['$scope','CategoryService',ViewCategoryController])
+    .controller("EditCategoryController",['$scope','$stateParams','CategoryService',EditCategoryController]);
 
 app.component("app",appComponent)
     .component("home",homePageComponent)
     .component("card",cardComponent)
     .component("productDetail",productDetailComponent)
     .component("searchPage",searchPageComponent)
-    .component("loginPage",loginComponent);
+    .component("loginPage",loginComponent)
+    .component("adminDashboard",adminDashboardComponent)
+    .component("addProduct",addProductComponent)
+    .component("viewProduct",viewProductComponent)
+    .component("editProduct",editProductComponent)
+    .component("addCategory",addCategoryComponent)
+    .component("viewCategory",viewCategoryComponent)
+    .component("editCategory",editCategoryComponent);
