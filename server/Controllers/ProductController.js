@@ -14,6 +14,7 @@ var productController={
             description:req.body.description
         })
         const categoryID=req.body.categoryID;
+
         if(typeof(categoryID)==="undefined" || categoryID===null)
             res.status(501).json({
                 success:false,
@@ -28,13 +29,13 @@ var productController={
                                 category.items.push(product);
                                 console.log(category.items);
                                 category.save();
-                                res.json({"message":"product created"})
+                                res.json({"message":result})
                             }
-                            throw err;
+                            console.log(err);
                         })
                     })
                     .catch((err)=>{
-                        res.status(500).json({"erorr":"sdasd"});
+                        res.status(500).json({"erorr":err});
                     })
         }  
     },
@@ -120,7 +121,6 @@ var productController={
     {
         var productName=req.params.productName;
         var query={"name":{"$regex":productName}};
-        console.log(query);
         Product.find(query)
                 .then((products)=>{
                     return res.status(200).json({

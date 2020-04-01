@@ -10,6 +10,10 @@ var appComponent={
                         <input type="text" ng-model="searchQuery"></input>
                         <a ui-sref="search({productName:searchQuery})">Search</a>
                     </div>
+                    <div>
+                        <a ui-sref="login">Login</a>
+                        <button ng-click="logout()">Logout</button>
+                    </div>
                 </div>
             </nav>
             <div class="container">
