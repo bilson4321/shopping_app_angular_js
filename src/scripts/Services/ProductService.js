@@ -12,9 +12,20 @@ export default function($http)
     {
         return $http.get(`/api/product/search/${name}`);
     }
-    this.addProduct=function(product)
+    this.addProduct=function(product,file)
     {
-        return $http.post(`/api/product/`,product);
+        var fd=new FormData();
+        fd.append('image',file);
+        fd.append('name',product.name);
+        fd.append('price',product.price);
+        fd.append('description',product.description);
+        fd.append('categoryID',product.categoryID);
+        return $http.post(`/api/product/`,fd,{
+            transformRequest:angular.identity,
+            headers:{
+                'Content-Type':undefined
+            }
+        });
     }
     this.updateProduct=function(id,product)
     {

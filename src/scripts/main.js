@@ -39,6 +39,7 @@ import viewCategoryComponent from './Components/ViewCategoryComponent';
 import editCategoryComponent from './Components/EditCategoryComponent';
 import customerDashboardComponent from './Components/CustomerDashboardComponent';
 import orderProductComponent from './Components/OrderProductComponent';
+import ImageUploadDirective from './Directives/ImageUploadDirective';
 
 
 
@@ -195,6 +196,8 @@ app.controller("AppController",['$scope','CategoryService','$state',AppControlle
     .controller("EditCategoryController",['$scope','$stateParams','CategoryService',EditCategoryController])
     .controller("OrderProductController",['$scope','$stateParams','ProductService',"AuthService","OrderService",OrderProductController])
     .controller("CustomerDashboardController",["$scope",'OrderService','AuthService',CustomerDashboardController]);
+
+app.directive("imageUpload",['$parse',ImageUploadDirective]);
 
 app.component("app",appComponent)
     .component("home",homePageComponent)

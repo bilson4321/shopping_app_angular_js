@@ -4,8 +4,14 @@ export default function($scope,ProductService,CategoryService)
     CategoryService.getAllCategory().then((response)=>{
         $scope.categories=response.data.categories;
     })
+    $scope.uploadedFile = function(element) {     
+        $scope.$apply(function($scope) {
+        $scope.files = element.files;  
+    });
+    }
     $scope.submit=function()
     {
+       
         var product={
             "name":$scope.name,
             "price":$scope.price,
@@ -13,7 +19,8 @@ export default function($scope,ProductService,CategoryService)
             "categoryID":$scope.categoryID
         }
         console.log("product",product);
-        ProductService.addProduct(product).then((response)=>{
+        console.dir($scope.myImage);
+        ProductService.addProduct(product,$scope.files[0]).then((response)=>{
             console.log("response received",response);
         })
         .catch(err=>{
