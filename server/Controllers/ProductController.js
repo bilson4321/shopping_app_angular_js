@@ -3,6 +3,7 @@ var mongoose=require('mongoose');
 var Product=require('./../Models/Product');
 var Category=require('./../Models/Category');
 
+
 var productController={
     createProduct:function(req,res)
     {
@@ -10,7 +11,7 @@ var productController={
             _id:mongoose.Types.ObjectId(),
             name:req.body.name,
             price:req.body.price,
-            photo:req.body.photo,
+            photo:'/upload/'+req.file.filename,
             description:req.body.description
         })
         const categoryID=req.body.categoryID;
@@ -27,7 +28,6 @@ var productController={
                             if(category)
                             {
                                 category.items.push(product);
-                                console.log(category.items);
                                 category.save();
                                 res.json({"message":result})
                             }

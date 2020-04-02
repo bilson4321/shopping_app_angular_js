@@ -1,5 +1,7 @@
 var express=require('express');
 var router=express.Router();
+var multer=require('multer');
+var upload=multer({dest:"./build/upload/"})
 
 var categoryController=require('../Controllers/CategoryController');
 var productController=require('./../Controllers/ProductController');
@@ -13,7 +15,7 @@ router.get('/category/:categoryID',categoryController.findCategoryById);
 router.patch('/category/:categoryID',categoryController.updateCategory);
 router.delete('/category/:categoryID',categoryController.deleteCategory);
 
-router.post('/product',productController.createProduct);
+router.post('/product',upload.single('image'),productController.createProduct);
 router.get('/product',productController.getAllProduct);
 router.get('/product/:productID',productController.findById);
 router.patch('/product/:productID',productController.updateProduct);
