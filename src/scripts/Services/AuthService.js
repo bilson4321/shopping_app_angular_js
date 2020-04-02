@@ -14,4 +14,8 @@ export default function()
         }
         return false;
     }
+    this.decodeToken=function()
+    {
+
+    }
 }

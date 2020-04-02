@@ -1,6 +1,7 @@
 import angular from 'angular';
 import 'angular-resource';
 import '@uirouter/angularjs';
+import 'angular-jwt'
 
 import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
@@ -40,7 +41,8 @@ import editCategoryComponent from './Components/EditCategoryComponent';
 
 var app=angular.module("myApp",[
                                 'ui.router',
-                                'ngResource'
+                                'ngResource',
+                                'angular-jwt'
                                 ]);
 
 app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
@@ -79,17 +81,20 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
         .state('admin',{
             url:'/admin',
             template:"<admin-dashboard></admin-dashboard>",
-            authenticate:true
+            authenticate:true,
+            role:'admin',
         })
         .state('addProduct',{
             url:'/addProduct',
             template:"<add-product></add-product>",
-            authenticate:true
+            authenticate:true,
+            role:'admin'
         })
         .state('editProduct',{
             url:'/editProduct?productID',
             template:"<edit-product></edit-product>",
             authenticate:true,
+            role:'admin',
             params:{
                 productID:'value'
             }
@@ -97,22 +102,26 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
         .state('viewProduct',{
             url:'/viewProduct',
             template:"<view-product></view-product>",
-            authenticate:true
+            authenticate:true,
+            role:'admin'
         })
         .state('addCategory',{
             url:'/addCategory',
             template:"<add-category></add-category>",
-            authenticate:true
+            authenticate:true,
+            role:'admin'
         })
         .state('viewCategory',{
             url:'/viewCategory',
             template:"<view-category></view-category>",
-            authenticate:true
+            authenticate:true,
+            role:'admin'
         })
         .state('editCategory',{
             url:'/editCategory?categoryID',
             template:"<edit-category></edit-category>",
             authenticate:true,
+            role:'admin',
             params:{
                 categoryID:'value'
             }
@@ -120,7 +129,8 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
         .state('Auth',{
             url:'/auth',
             template:"<h1>not pasing</h1>",
-            authenticate:true
+            authenticate:true,
+            role:'customer'
         });
         
     $urlRouterProvider.otherwise('/home');
@@ -130,12 +140,25 @@ app.service("ProductService",['$http',ProductService])
     .service("CategoryService",[`$http`,CategoryService])
     .service("AuthService",AuthService);
 
-app.run(['$transitions',function($transitions){
+app.run(['$transitions','jwtHelper',function($transitions,jwtHelper){
     $transitions.onStart({},function(transition){
-        var token=localStorage.hasOwnProperty('Token');
-        if(transition.to().authenticate&&!token)
+        var hasToken=localStorage.hasOwnProperty('Token');
+        if(transition.to().authenticate&&!hasToken)
         {
             return transition.router.stateService.target('login');
+        }
+        else if(hasToken)
+        {
+            var token=localStorage.getItem('Token');
+            var payload=jwtHelper.decodeToken(token);
+            if(payload.hasOwnProperty('role'))
+            {
+                if(payload.role!==transition.to().role&&transition.to().authenticate)
+                {
+                    console.log("not your role");
+                    return false;
+                }
+            } 
         }
     })
 }]);
