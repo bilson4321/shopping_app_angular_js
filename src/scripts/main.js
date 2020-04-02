@@ -151,14 +151,16 @@ app.run(['$transitions','jwtHelper',function($transitions,jwtHelper){
         {
             var token=localStorage.getItem('Token');
             var payload=jwtHelper.decodeToken(token);
-            if(payload.hasOwnProperty('role'))
+            if(transition.to().hasOwnProperty('role'))
             {
                 if(payload.role!==transition.to().role&&transition.to().authenticate)
                 {
                     console.log("not your role");
                     return false;
                 }
-            } 
+            }
+            
+            
         }
     })
 }]);
