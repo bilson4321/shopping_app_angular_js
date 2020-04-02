@@ -1,5 +1,4 @@
-//import * as decode from 'jwt-decode';
-export default function()
+export default function(jwtHelper)
 {
     this.authenticated=false;
     this.isAuthenticated=function()
@@ -17,5 +16,14 @@ export default function()
     this.decodeToken=function()
     {
 
+    }
+    this.getUserId=function()
+    {
+        var token=localStorage.getItem('Token');
+        var payload=jwtHelper.decodeToken(token);
+        if(payload.hasOwnProperty('id'))
+            return payload.id;
+        else
+            return "not found"
     }
 }

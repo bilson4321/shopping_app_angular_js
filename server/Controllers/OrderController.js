@@ -71,6 +71,28 @@ var orderController={
                     error:err.message
                 })
             })
+    },
+    getOrderByUserID:function(req,res)
+    {
+        const id=req.params.userID;
+        const query={"user":id};
+        Order.find(query)
+        .populate('user')
+        .populate('product')
+        .then((order)=>{
+            res.status(200).json({
+                success:true,
+                message:"Order of user id",
+                orders:order
+            })
+         })
+        .catch((err)=>{
+            res.status(500).json({
+                success:false,
+                message:"Order doesnt exist",
+                error:err.message
+            })
+        })
     }
 }
 module.exports=orderController;

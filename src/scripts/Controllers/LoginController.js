@@ -1,4 +1,4 @@
-export default function($scope,$http,$state)
+export default function($scope,$http,$state,jwtHelper)
 {
     if(localStorage.hasOwnProperty('Token'))
     {
@@ -13,8 +13,11 @@ export default function($scope,$http,$state)
         console.log("data",data);
         $http.post('/api/authenticate/',data).then((response)=>{
             localStorage.setItem('Token',response.data.Token)
-            console.log("Token",response.data.Token);
+            var payload=jwtHelper.decodeToken(response.data.Token);
+            if(payload.role==="admin")
             $state.go("admin");
+            else
+            $state.go("customer");
         },
         (err)=>{
             console.log("error",err)

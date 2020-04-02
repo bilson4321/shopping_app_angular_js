@@ -11,6 +11,7 @@ var productDetailComponent={
                 <h4>Price: {{product.price}}</h4>
                 <h3>Description</h3>
                 <h4>{{product.description}}</h4>
+                <button ui-sref=order({productID:product._id})>Buy</button>
             </div>
         </div>
     `

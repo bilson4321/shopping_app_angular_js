@@ -6,6 +6,7 @@ import 'angular-jwt'
 import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
 import AuthService from './Services/AuthService';
+import OrderService from './Services/OrderService';
 
 import AppController from './Controllers/AppController';
 import HomePageController from './Controllers/HomePageController';
@@ -20,6 +21,8 @@ import EditProductController from './Controllers/EditProductController';
 import AddCategoryController from './Controllers/AddCategoryController';
 import ViewCategoryController from './Controllers/ViewCategoryController';
 import EditCategoryController from './Controllers/EditCategoryController';
+import OrderProductController from './Controllers/OrderProductController';
+import CustomerDashboardController from './Controllers/CustomerDashboardController';
 
 import appComponent from './Components/AppComponent';
 import homePageComponent from './Components/HomePageComponent';
@@ -34,6 +37,8 @@ import editProductComponent from './Components/EditProductComponent';
 import addCategoryComponent from './Components/AddCategoryComponent';
 import viewCategoryComponent from './Components/ViewCategoryComponent';
 import editCategoryComponent from './Components/EditCategoryComponent';
+import customerDashboardComponent from './Components/CustomerDashboardComponent';
+import orderProductComponent from './Components/OrderProductComponent';
 
 
 
@@ -126,11 +131,20 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
                 categoryID:'value'
             }
         })
-        .state('Auth',{
-            url:'/auth',
-            template:"<h1>not pasing</h1>",
+        .state('customer',{
+            url:'/customer',
+            template:"<customer-dashboard></customer-dashboard>",
             authenticate:true,
             role:'customer'
+        })
+        .state('order',{
+            url:'/order?productID',
+            template:"<order-product></order-product>",
+            role:"customer",
+            authenticate:true,
+            params:{
+                productID:'value'
+            }
         });
         
     $urlRouterProvider.otherwise('/home');
@@ -138,7 +152,8 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
 
 app.service("ProductService",['$http',ProductService])
     .service("CategoryService",[`$http`,CategoryService])
-    .service("AuthService",AuthService);
+    .service("OrderService",['$http',OrderService])
+    .service("AuthService",['jwtHelper',AuthService]);
 
 app.run(['$transitions','jwtHelper',function($transitions,jwtHelper){
     $transitions.onStart({},function(transition){
@@ -170,14 +185,16 @@ app.controller("AppController",['$scope','CategoryService','$state',AppControlle
     .controller("CardController",['$scope',CardController])
     .controller("ProductDetailController",['$scope','$stateParams','ProductService',ProductDetailController])
     .controller("SearchPageController",['$scope','$stateParams','ProductService',SearchPageController])
-    .controller("LoginController",["$scope","$http","$state",LoginController])
+    .controller("LoginController",["$scope","$http","$state","jwtHelper",LoginController])
     .controller("AdminDashboardController",["$scope",AdminDashboardController])
     .controller("AddProductController",['$scope','ProductService','CategoryService',AddProductController])
     .controller("ViewProductController",['$scope','ProductService',ViewProductController])
     .controller("EditProductController",['$scope','$stateParams','ProductService','CategoryService',EditProductController])
     .controller("AddCategoryController",["$scope","CategoryService",AddCategoryController])
     .controller("ViewCategoryController",['$scope','CategoryService',ViewCategoryController])
-    .controller("EditCategoryController",['$scope','$stateParams','CategoryService',EditCategoryController]);
+    .controller("EditCategoryController",['$scope','$stateParams','CategoryService',EditCategoryController])
+    .controller("OrderProductController",['$scope','$stateParams','ProductService',"AuthService","OrderService",OrderProductController])
+    .controller("CustomerDashboardController",["$scope",'OrderService','AuthService',CustomerDashboardController]);
 
 app.component("app",appComponent)
     .component("home",homePageComponent)
@@ -191,4 +208,6 @@ app.component("app",appComponent)
     .component("editProduct",editProductComponent)
     .component("addCategory",addCategoryComponent)
     .component("viewCategory",viewCategoryComponent)
-    .component("editCategory",editCategoryComponent);
+    .component("editCategory",editCategoryComponent)
+    .component("customerDashboard",customerDashboardComponent)
+    .component("orderProduct",orderProductComponent);

@@ -28,7 +28,8 @@ router.delete('/user/:userID',userController.deleteUser);
 
 router.post('/order',orderController.createOrder);
 router.get('/order',orderController.getAllOrder);
-router.get('/order/:orderID',orderController.getOrderById);
+router.get('/order/:orderID',orderController.getOrderById)
+router.get('/orderByUser/:userID',orderController.getOrderByUserID);
 
 router.post('/authenticate',authenticationController.authenticate);
 
