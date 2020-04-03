@@ -1,19 +1,19 @@
 var appComponent={
     controller:"AppController",
     template:`
-            <nav class="navbar">
-                <div class="container">
-                    <a ui-sref="home">
-                        <img src="images/storelogo.png" class="logo"></img>
+            <nav class="navbar navbar-expand-sm">
+                <div class="container-fluid">
+                    <a ui-sref="home" class="navbar-brand">
+                        <img src="images/storelogo.png" class="img-responsive logo"></img>
                     </a>
-                    <div class="search-bar">
-                        <input type="text" ng-model="searchQuery"></input>
-                        <a ui-sref="search({productName:searchQuery})">Search</a>
-                    </div>
-                    <div>
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="text" ng-model="searchQuery" placeholder="Search">
+                        <a class="btn btn-success" type="submit" ui-sref="search({productName:searchQuery})>Search</a>
+                    </form>
+                    <ul class="nav justify-content-end">
                         <a ui-sref="login">Login</a>
                         <button ng-click="logout()">Logout</button>
-                    </div>
+                    </ul>
                 </div>
             </nav>
             <div class="container">
