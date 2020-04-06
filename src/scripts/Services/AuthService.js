@@ -5,7 +5,6 @@ export default function(jwtHelper)
     {
         var token=localStorage.getItem('Token');
         console.log("token in local storage",token);
-        console.log("type of",typeof(token));
         if(token!==null)
         {
             console.log("not authenticated")
@@ -20,10 +19,25 @@ export default function(jwtHelper)
     this.getUserId=function()
     {
         var token=localStorage.getItem('Token');
-        var payload=jwtHelper.decodeToken(token);
-        if(payload.hasOwnProperty('id'))
-            return payload.id;
-        else
-            return "not found"
+        if(token!==null)
+        {
+            var payload=jwtHelper.decodeToken(token);
+            if(payload.hasOwnProperty('id'))
+                return payload.id;
+            else
+                return "not found"
+        }
+    }
+    this.getUserName=function()
+    {
+        var token=localStorage.getItem('Token');
+        if(token!==null)
+        {
+            var payload=jwtHelper.decodeToken(token);
+            if(payload.hasOwnProperty('name'))
+                return payload.name;
+            else
+                return "not found"
+        }
     }
 }

@@ -8,7 +8,7 @@ import CategoryService from './Services/CategoryService';
 import AuthService from './Services/AuthService';
 import OrderService from './Services/OrderService';
 
-import AppController from './Controllers/AppController';
+import NavbarController from './Controllers/NavbarController';
 import HomePageController from './Controllers/HomePageController';
 import CardController from './Controllers/CardController';
 import ProductDetailController from './Controllers/ProductDetailController';
@@ -24,7 +24,7 @@ import EditCategoryController from './Controllers/EditCategoryController';
 import OrderProductController from './Controllers/OrderProductController';
 import CustomerDashboardController from './Controllers/CustomerDashboardController';
 
-import appComponent from './Components/AppComponent';
+import navbarComponent from './Components/NavbarComponent';
 import homePageComponent from './Components/HomePageComponent';
 import cardComponent from './Components/CardComponent';
 import productDetailComponent from './Components/ProductDetailComponent';
@@ -74,6 +74,7 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
         .state('search',{
             url:'/search?productName',
             template:"<search-page></search-page>",
+            authenticate:false,
             params:{
                 productName:'value'
             }
@@ -181,8 +182,8 @@ app.run(['$transitions','jwtHelper',function($transitions,jwtHelper){
     })
 }]);
 
-app.controller("AppController",['$scope','CategoryService','$state',AppController])
-    .controller("HomePageController",['$scope','ProductService',HomePageController])
+app.controller("NavbarController",['$scope','$state','AuthService',NavbarController])
+    .controller("HomePageController",['$scope','ProductService','CategoryService',HomePageController])
     .controller("CardController",['$scope',CardController])
     .controller("ProductDetailController",['$scope','$stateParams','ProductService',ProductDetailController])
     .controller("SearchPageController",['$scope','$stateParams','ProductService',SearchPageController])
@@ -199,7 +200,7 @@ app.controller("AppController",['$scope','CategoryService','$state',AppControlle
 
 app.directive("imageUpload",['$parse',ImageUploadDirective]);
 
-app.component("app",appComponent)
+app.component("navbar",navbarComponent)
     .component("home",homePageComponent)
     .component("card",cardComponent)
     .component("productDetail",productDetailComponent)
