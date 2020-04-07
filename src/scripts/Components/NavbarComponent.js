@@ -26,8 +26,8 @@ var navbarComponent={
                                         {{userName}}
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item">My Profile</a>
-                                        <a class="dropdown-item">My Order</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" ui-sref="customerProfile">My Profile</a>
+                                        <a class="dropdown-item" href="javasrcipt:void(0)" ui-sref="customerOrder">My Order</a>
                                         <a class="dropdown-item" href="javasrcipt:void(0)" ng-click="logout()">Logout</a>
                                     </div>
                                 </div>
@@ -51,10 +51,7 @@ var navbarComponent={
                         <li class="list-group-item"><a href="javasrcipt:void(0)" ng-click="logout()">Logout</a></li>
                     </ul>
                 </div>
-            </div>
-
-            <div ui-view>
-            </div>   
+            </div> 
     `
 }
 export default navbarComponent;

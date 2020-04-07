@@ -7,6 +7,7 @@ import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
 import AuthService from './Services/AuthService';
 import OrderService from './Services/OrderService';
+import UserService from './Services/UserService';
 
 import NavbarController from './Controllers/NavbarController';
 import HomePageController from './Controllers/HomePageController';
@@ -22,7 +23,8 @@ import AddCategoryController from './Controllers/AddCategoryController';
 import ViewCategoryController from './Controllers/ViewCategoryController';
 import EditCategoryController from './Controllers/EditCategoryController';
 import OrderProductController from './Controllers/OrderProductController';
-import CustomerDashboardController from './Controllers/CustomerDashboardController';
+import CustomerOrderController from './Controllers/CustomerOrderController';
+import EditCustomerProfileController from './Controllers/EditCustomerProfileController';
 
 import navbarComponent from './Components/NavbarComponent';
 import homePageComponent from './Components/HomePageComponent';
@@ -37,11 +39,16 @@ import editProductComponent from './Components/EditProductComponent';
 import addCategoryComponent from './Components/AddCategoryComponent';
 import viewCategoryComponent from './Components/ViewCategoryComponent';
 import editCategoryComponent from './Components/EditCategoryComponent';
-import customerDashboardComponent from './Components/CustomerDashboardComponent';
+import customerOrderComponent from './Components/CustomerOrderComponent';
 import orderProductComponent from './Components/OrderProductComponent';
+import appComponent from './Components/AppComponent';
+import sidebarComponent from './Components/SidebarComponent';
+import editCustomerProfileComponent from './Components/EditCustomerProfileComponent';
+
+
 import ImageUploadDirective from './Directives/ImageUploadDirective';
-
-
+import userRegisterComponent from './Components/UserRegisterComponent';
+import UserRegisterController from './Controllers/UserRegisterController';
 
 
 
@@ -55,7 +62,7 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
     $stateProvider
         .state('home',{
             url:'/home',
-            template:"<home></home>",
+            template:"<navbar></navbar><home></home>",
             authenticate:false
         })
         .state('category',{
@@ -65,7 +72,7 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
         })
         .state('detail',{
             url:'/detail?productID',
-            template:"<product-detail></product-detail>",
+            template:"<navbar></navbar><product-detail></product-detail>",
             authenticate:false,
             params:{
                 productID:'value'
@@ -73,7 +80,7 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
         })
         .state('search',{
             url:'/search?productName',
-            template:"<search-page></search-page>",
+            template:"<navbar></navbar><search-page></search-page>",
             authenticate:false,
             params:{
                 productName:'value'
@@ -81,25 +88,25 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
         })
         .state('login',{
             url:'/login',
-            template:"<login-page></login-page>",
+            template:"<navbar></navbar><login-page></login-page>",
             authenticate:false
             }
         )
         .state('admin',{
             url:'/admin',
-            template:"<admin-dashboard></admin-dashboard>",
+            template:"<sidebar></sidebar><div class='content'><admin-dashboard></admin-dashboard></div></div></div></div>",
             authenticate:true,
             role:'admin',
         })
         .state('addProduct',{
             url:'/addProduct',
-            template:"<add-product></add-product>",
+            template:"<sidebar></sidebar><div class='content'><add-product></add-product></div></div></div></div>",
             authenticate:true,
             role:'admin'
         })
         .state('editProduct',{
             url:'/editProduct?productID',
-            template:"<edit-product></edit-product>",
+            template:"<sidebar></sidebar><div class='content'><edit-product></edit-product></div></div></div></div>",
             authenticate:true,
             role:'admin',
             params:{
@@ -108,45 +115,56 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
         })
         .state('viewProduct',{
             url:'/viewProduct',
-            template:"<view-product></view-product>",
+            template:"<sidebar></sidebar><div class='content'><view-product></view-product></div></div></div></div>",
             authenticate:true,
             role:'admin'
         })
         .state('addCategory',{
             url:'/addCategory',
-            template:"<add-category></add-category>",
+            template:"<sidebar></sidebar><div class='content'><add-category></add-category></div></div></div></div>",
             authenticate:true,
             role:'admin'
         })
         .state('viewCategory',{
             url:'/viewCategory',
-            template:"<view-category></view-category>",
+            template:"<sidebar></sidebar><div class='content'><view-category></view-category></div></div></div></div>",
             authenticate:true,
             role:'admin'
         })
         .state('editCategory',{
             url:'/editCategory?categoryID',
-            template:"<edit-category></edit-category>",
+            template:"<sidebar></sidebar><div class='content'><edit-category></edit-category></div></div></div></div>",
             authenticate:true,
             role:'admin',
             params:{
                 categoryID:'value'
             }
         })
-        .state('customer',{
-            url:'/customer',
-            template:"<customer-dashboard></customer-dashboard>",
+        .state('customerOrder',{
+            url:'/customerOrder',
+            template:"<navbar></navbar><customer-order></customer-order>",
             authenticate:true,
             role:'customer'
         })
         .state('order',{
             url:'/order?productID',
-            template:"<order-product></order-product>",
+            template:"<navbar></navbar><order-product></order-product>",
             role:"customer",
             authenticate:true,
             params:{
                 productID:'value'
             }
+        })
+        .state('customerProfile',{
+            url:'/customerProfile',
+            template:"<navbar></navbar><edit-customer></edit-customer>",
+            role:"customer",
+            authenticate:true
+        })
+        .state('userRegister',{
+            url:'/register',
+            template:"<navbar></navbar><user-register></user-register>",
+            authenticate:false
         });
         
     $urlRouterProvider.otherwise('/home');
@@ -155,7 +173,8 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
 app.service("ProductService",['$http',ProductService])
     .service("CategoryService",[`$http`,CategoryService])
     .service("OrderService",['$http',OrderService])
-    .service("AuthService",['jwtHelper',AuthService]);
+    .service("AuthService",['jwtHelper',AuthService])
+    .service("UserService",['$http',UserService]);
 
 app.run(['$transitions','jwtHelper',function($transitions,jwtHelper){
     $transitions.onStart({},function(transition){
@@ -196,11 +215,14 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("ViewCategoryController",['$scope','CategoryService',ViewCategoryController])
     .controller("EditCategoryController",['$scope','$stateParams','CategoryService',EditCategoryController])
     .controller("OrderProductController",['$scope','$stateParams','ProductService',"AuthService","OrderService",OrderProductController])
-    .controller("CustomerDashboardController",["$scope",'OrderService','AuthService',CustomerDashboardController]);
+    .controller("CustomerOrderController",["$scope",'OrderService','AuthService',CustomerOrderController])
+    .controller("EditCustomerProfileController",["$scope","AuthService","UserService",EditCustomerProfileController])
+    .controller("UserRegisterController",["$scope","UserService",UserRegisterController]);
 
 app.directive("imageUpload",['$parse',ImageUploadDirective]);
 
-app.component("navbar",navbarComponent)
+app.component("app",appComponent)
+    .component("navbar",navbarComponent)
     .component("home",homePageComponent)
     .component("card",cardComponent)
     .component("productDetail",productDetailComponent)
@@ -213,5 +235,8 @@ app.component("navbar",navbarComponent)
     .component("addCategory",addCategoryComponent)
     .component("viewCategory",viewCategoryComponent)
     .component("editCategory",editCategoryComponent)
-    .component("customerDashboard",customerDashboardComponent)
-    .component("orderProduct",orderProductComponent);
+    .component("customerOrder",customerOrderComponent)
+    .component("orderProduct",orderProductComponent)
+    .component("sidebar",sidebarComponent)
+    .component("editCustomer",editCustomerProfileComponent)
+    .component("userRegister",userRegisterComponent);

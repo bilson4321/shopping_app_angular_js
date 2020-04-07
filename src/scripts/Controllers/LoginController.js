@@ -17,7 +17,7 @@ export default function($scope,$http,$state,jwtHelper)
             if(payload.role==="admin")
             $state.go("admin");
             else
-            $state.go("customer");
+            $state.go("customerOrder");
         },
         (err)=>{
             console.log("error",err)

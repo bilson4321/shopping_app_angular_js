@@ -1,7 +1,7 @@
 var adminDashboardComponent={
     template:`
-        <div class="container">Admin dashboard</div>
         <div class="container">
+        Admin dashboard
             <ul>
                 <li ui-sref="addProduct">add Product</li>
                 <li ui-sref="viewProduct">View Product</li>
