@@ -40,14 +40,15 @@ var navbarComponent={
             <!-- mobilenavbar -->
             <div class="mobile-navbar">
                 <div class="container-fluid">
-                    <a href="#" style="display: inline;"><h3 style="display: inline;">Store</h3></a>
+                    <a ui-sref="home" style="display: inline;"><h3 style="display: inline;">Store</h3></a>
                     <button style="float: right;" data-toggle="collapse" data-target="#mobMenu"><i class="fas fa-bars"></i></button>
                 </div>
                 <div id="mobMenu" class="collapse">
                     <input type="text">
-                    <ul class="list-group">
-                        <li class="list-group-item"><a href="#">My Profile</a></li>
-                        <li class="list-group-item"><a href="#">My Order</a></li>
+                    <li class="list-group-item" ng-if="!isAuthenticated"><a href="javascript:void(0)" ui-sref="login">Login</a></li>
+                    <ul class="list-group" ng-if="isAuthenticated">
+                        <li class="list-group-item"><a href="javascript:void(0)" ui-sref="customerProfile">My Profile</a></li>
+                        <li class="list-group-item"><a href="javasrcipt:void(0)" ui-sref="customerOrder">My Order</a></li>
                         <li class="list-group-item"><a href="javasrcipt:void(0)" ng-click="logout()">Logout</a></li>
                     </ul>
                 </div>

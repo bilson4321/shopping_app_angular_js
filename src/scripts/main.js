@@ -49,6 +49,8 @@ import editCustomerProfileComponent from './Components/EditCustomerProfileCompon
 import ImageUploadDirective from './Directives/ImageUploadDirective';
 import userRegisterComponent from './Components/UserRegisterComponent';
 import UserRegisterController from './Controllers/UserRegisterController';
+import shopByCategoryComponent from './Components/ShopByCategoryComponent';
+import ShopByCategoryController from './Controllers/ShopByCategoryController';
 
 
 
@@ -165,6 +167,11 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
             url:'/register',
             template:"<navbar></navbar><user-register></user-register>",
             authenticate:false
+        })
+        .state('shopByCategory',{
+            url:'/shopBy?categoryID',
+            template:"<navbar></navbar><shop-by-category></shop-by-category>",
+            authenticate:false
         });
         
     $urlRouterProvider.otherwise('/home');
@@ -217,7 +224,8 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("OrderProductController",['$scope','$stateParams','ProductService',"AuthService","OrderService",OrderProductController])
     .controller("CustomerOrderController",["$scope",'OrderService','AuthService',CustomerOrderController])
     .controller("EditCustomerProfileController",["$scope","AuthService","UserService",EditCustomerProfileController])
-    .controller("UserRegisterController",["$scope","UserService",UserRegisterController]);
+    .controller("UserRegisterController",["$scope","UserService",UserRegisterController])
+    .controller("ShopByCategoryController",["$scope","$stateParams","CategoryService",ShopByCategoryController]);
 
 app.directive("imageUpload",['$parse',ImageUploadDirective]);
 
@@ -239,4 +247,5 @@ app.component("app",appComponent)
     .component("orderProduct",orderProductComponent)
     .component("sidebar",sidebarComponent)
     .component("editCustomer",editCustomerProfileComponent)
-    .component("userRegister",userRegisterComponent);
+    .component("userRegister",userRegisterComponent)
+    .component("shopByCategory",shopByCategoryComponent);

@@ -7,7 +7,7 @@ var homePageComponent={
                     <div class="col-sm-3">
                         <div class="categories-container">
                             <ul class="list-group">
-                                <li class="list-group-item" ng-repeat="c in categories"><a href="#">{{c.name}}</a></li>
+                                <li class="list-group-item" ng-repeat="c in categories"><a ui-sref="shopByCategory({categoryID:c._id})">{{c.name}}</a></li>
                             </ul>
                         </div>
                     </div>
