@@ -22,8 +22,10 @@ var addProductComponent={
                         </div>
                         <div class="form-group">
                             <label for="price">Choose Image:</label>
-                            <input type="file" class="form-control-file border name="image" onchange="angular.element(this).scope().uploadedFile(this);" required ">
+                            <image-upload outputuri='image'></image-upload> 
+                                <image-crop imagetocrop='image' croppedimage='cimage'></image-crop>
                         </div>
+                        <img src='{{cimage}}'>
                         <div class="form-group">
                             <label for="description">Description:</label>
                             <textarea class="form-control" rows="5" id="description" ng-model="description"></textarea>
@@ -36,3 +38,4 @@ var addProductComponent={
     `
 }
 export default addProductComponent;
+//<input type="file" class="form-control-file border name="image" onchange="angular.element(this).scope().uploadedFile(this);" required ">

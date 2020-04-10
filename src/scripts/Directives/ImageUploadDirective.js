@@ -1,22 +1,25 @@
-export default function($parse)
+export default function()
 {
     return {
-        restrict:'A',
-        link:['scope','element','attrs',function(scope,element,attrs)
+        restrict:'E',
+        replace:true,
+        template:'<input type="file" class="form-control">',
+        scope:{
+            outputuri:'='
+        },
+        link:function(scope,element,attrs)
         {
-            var parsedFile=$parse(attrs.imageUpload);
-            var parsedFileSetter=parsedFile.assign;
-    
+            var reader=new FileReader();
+           
             element.on('change',function(){
-                scope.$apply(function(){
-                    parsedFileSetter(scope,element[0].files[0]);
-                })
-                
-                // console.log("hello");
-                // $parse(attrs.imageUpload).assign(scope,element[0].files)
-                // console.log("link",element[0].files)
-                // scope.$apply
+                reader.readAsDataURL(element[0].files[0]);
+                reader.onload=function(e){
+                    var result=e.target.result;
+                    scope.$apply(function(){
+                        scope.outputuri=result;
+                    });
+                }
             })
-        }]
+        }
     }
 }
