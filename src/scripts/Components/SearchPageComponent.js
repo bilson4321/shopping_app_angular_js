@@ -1,12 +1,16 @@
 var searchPageComponent={
     controller:"SearchPageController",
     template:`
+        <div class="wrapper my-2">
             <div class="container">
-                <h1>Search Result</h1>
-                <ul>
-                    <li ng-repeat='p in products'><card item='p'></card></li>
-                </ul>
+                <div class="card my-4">
+                    <div class="card-body">Search result of ""</div>
+                </div>
+                <div class="card-columns">
+                    <div class="card" ng-repeat='p in products'><card item='p'></card></div>
+                </div>
             </div>
+        </div>
     `
 }
 export default searchPageComponent;
