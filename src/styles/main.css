@@ -58,6 +58,19 @@
     /* width: 100%; */
 }
 /* end sidebar */
+/* crop section */
+#myCanvas{
+    width: 100%;
+    border:1px solid #2c2c2c;
+}
+.crop-guide{
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    border: 2px solid red;
+    top:0;
+}
+/*crop section*/
 @media only screen and (max-width:575px)
 {
     .desktop-navbar{

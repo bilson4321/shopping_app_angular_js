@@ -4,11 +4,7 @@ export default function($scope,ProductService,CategoryService)
     CategoryService.getAllCategory().then((response)=>{
         $scope.categories=response.data.categories;
     })
-    $scope.uploadedFile = function(element) {     
-        $scope.$apply(function($scope) {
-        $scope.files = element.files;  
-    });
-    }
+   
     $scope.submit=function()
     {
        
@@ -20,7 +16,7 @@ export default function($scope,ProductService,CategoryService)
         }
         console.log("product",product);
         console.dir($scope.myImage);
-        ProductService.addProduct(product,$scope.files[0]).then((response)=>{
+        ProductService.addProduct(product,$scope.cimage).then((response)=>{
             console.log("response received",response);
         })
         .catch(err=>{

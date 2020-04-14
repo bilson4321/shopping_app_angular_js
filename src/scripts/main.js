@@ -1,7 +1,7 @@
 import angular from 'angular';
 import 'angular-resource';
 import '@uirouter/angularjs';
-import 'angular-jwt'
+import 'angular-jwt';
 
 import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
@@ -51,6 +51,7 @@ import userRegisterComponent from './Components/UserRegisterComponent';
 import UserRegisterController from './Controllers/UserRegisterController';
 import shopByCategoryComponent from './Components/ShopByCategoryComponent';
 import ShopByCategoryController from './Controllers/ShopByCategoryController';
+import ImageCropDirective from './Directives/ImageCropDirective';
 
 
 
@@ -227,7 +228,8 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("UserRegisterController",["$scope","UserService",UserRegisterController])
     .controller("ShopByCategoryController",["$scope","$stateParams","CategoryService",ShopByCategoryController]);
 
-app.directive("imageUpload",['$parse',ImageUploadDirective]);
+app.directive("imageUpload",ImageUploadDirective)
+    .directive("imageCrop",['$document',ImageCropDirective]);
 
 app.component("app",appComponent)
     .component("navbar",navbarComponent)
