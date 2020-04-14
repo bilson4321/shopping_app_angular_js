@@ -2,7 +2,8 @@ export default function($scope,ProductService,CategoryService)
 {
     $scope.products='';
     ProductService.getAllProduct().then(function(response){
-        $scope.products=response.data.products;
+        var arr=response.data.products;
+        $scope.products=arr.splice(0,4);
     });    
     $scope.categories='';
     CategoryService.getAllCategory().then(function(response){
