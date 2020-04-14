@@ -1,5 +1,6 @@
 export default function($http)
 {
+    const header={'Authorization':''+localStorage.getItem('Token')}
     this.getAllProduct=function()
     {
         return $http.get('/api/product/');
@@ -23,16 +24,17 @@ export default function($http)
         return $http.post(`/api/product/`,fd,{
             transformRequest:angular.identity,
             headers:{
-                'Content-Type':undefined
+                'Content-Type':undefined,
+                'Authorization':''+localStorage.getItem('Token')
             }
         });
     }
     this.updateProduct=function(id,product)
     {
-        return $http.patch(`/api/product/${id}`,product);
+        return $http.patch(`/api/product/${id}`,product,{headers:header});
     }
     this.deleteProduct=function(id)
     {
-        return $http.delete(`/api/product/${id}`);
+        return $http.delete(`/api/product/${id}`,{headers:header});
     }
 }
