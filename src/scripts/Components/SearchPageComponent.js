@@ -6,9 +6,7 @@ var searchPageComponent={
                 <div class="card my-4">
                     <div class="card-body">Search result of ""</div>
                 </div>
-                <div class="card-columns">
-                    <div class="card" ng-repeat='p in products'><card item='p'></card></div>
-                </div>
+                <card-grid displaylist='products'></card-grid>
             </div>
         </div>
     `

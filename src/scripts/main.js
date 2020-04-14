@@ -25,6 +25,10 @@ import EditCategoryController from './Controllers/EditCategoryController';
 import OrderProductController from './Controllers/OrderProductController';
 import CustomerOrderController from './Controllers/CustomerOrderController';
 import EditCustomerProfileController from './Controllers/EditCustomerProfileController';
+import ShopByCategoryController from './Controllers/ShopByCategoryController';
+import UserRegisterController from './Controllers/UserRegisterController';
+
+
 
 import navbarComponent from './Components/NavbarComponent';
 import homePageComponent from './Components/HomePageComponent';
@@ -44,14 +48,14 @@ import orderProductComponent from './Components/OrderProductComponent';
 import appComponent from './Components/AppComponent';
 import sidebarComponent from './Components/SidebarComponent';
 import editCustomerProfileComponent from './Components/EditCustomerProfileComponent';
+import cardGridComponent from './Components/CardGridComponent';
+import shopByCategoryComponent from './Components/ShopByCategoryComponent';
+import userRegisterComponent from './Components/UserRegisterComponent';
 
 
 import ImageUploadDirective from './Directives/ImageUploadDirective';
-import userRegisterComponent from './Components/UserRegisterComponent';
-import UserRegisterController from './Controllers/UserRegisterController';
-import shopByCategoryComponent from './Components/ShopByCategoryComponent';
-import ShopByCategoryController from './Controllers/ShopByCategoryController';
 import ImageCropDirective from './Directives/ImageCropDirective';
+import CardGridController from './Controllers/CardGridController';
 
 
 
@@ -226,7 +230,8 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("CustomerOrderController",["$scope",'OrderService','AuthService',CustomerOrderController])
     .controller("EditCustomerProfileController",["$scope","AuthService","UserService",EditCustomerProfileController])
     .controller("UserRegisterController",["$scope","UserService",UserRegisterController])
-    .controller("ShopByCategoryController",["$scope","$stateParams","CategoryService",ShopByCategoryController]);
+    .controller("ShopByCategoryController",["$scope","$stateParams","CategoryService",ShopByCategoryController])
+    .controller("CardGridController",['$scope',CardGridController]);
 
 app.directive("imageUpload",ImageUploadDirective)
     .directive("imageCrop",['$document',ImageCropDirective]);
@@ -250,4 +255,5 @@ app.component("app",appComponent)
     .component("sidebar",sidebarComponent)
     .component("editCustomer",editCustomerProfileComponent)
     .component("userRegister",userRegisterComponent)
-    .component("shopByCategory",shopByCategoryComponent);
+    .component("shopByCategory",shopByCategoryComponent)
+    .component("cardGrid",cardGridComponent);
