@@ -16,7 +16,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 const database_url=process.env.database_url;
-console.log("database",database_url);
 
 mongoose.connect(`${database_url}`,{ useNewUrlParser: true, useUnifiedTopology: true })
     .then(()=>{
