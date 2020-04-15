@@ -32,7 +32,7 @@ var categroyController={
     getAllCategory:function(req,res)
     {
         Category.find()
-                .select('_id name description')
+                .select('_id name description items')
                 .then((allCategory)=>{
                     return res.status(200).json({
                         success:true,

@@ -3,7 +3,7 @@ var productDetailComponent={
     template:`
         <div class="wrapper my-2">
         <div class="container">
-            <div class="row">
+            <div class="row my-5">
                 <div class="col-sm-8">
                     <img src={{product.photo}} class="img-fluid">
                 </div>
@@ -13,6 +13,14 @@ var productDetailComponent={
                     <h3>Description</h3>
                     <p>{{product.description}}</p>
                     <button class="btn btn-primary" ui-sref=order({productID:product._id})>Buy</button>
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col-sm-12">
+                    <h3>Recomended Product</h3>
+                    <div class="card-deck">
+                        <div class="card" ng-repeat='p in relatedProducts'><card item='p'></card></div>
+                    </div>
                 </div>
             </div>
         </div>

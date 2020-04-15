@@ -7,6 +7,7 @@ var auth=require('../Services/Auth');
 
 var categoryController=require('../Controllers/CategoryController');
 var productController=require('./../Controllers/ProductController');
+var relatedProuctController=require('./../Controllers/RelatedProductController');
 var userController=require('./../Controllers/UserController');
 var orderController=require('./../Controllers/OrderController');
 var authenticationController=require('./../Controllers/AuthenticationController');
@@ -23,6 +24,9 @@ router.get('/product/:productID',productController.findById);
 router.patch('/product/:productID',auth,productController.updateProduct);
 router.delete('/product/:productID',auth,productController.deleteProduct);
 router.get('/product/search/:productName',productController.searchProduct);
+
+router.post('/related',relatedProuctController.addRelated);
+router.get('/related/:productID',relatedProuctController.getRelatedProduct);
 
 router.post('/user',userController.createUser);
 router.get('/user',auth,userController.getAllUser);

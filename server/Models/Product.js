@@ -19,7 +19,11 @@ const productSchema=new mongoose.Schema({
     description:{
         type:String,
         required:false
-    }
+    },
+    related:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Product'
+    }]
 });
 
 module.exports=mongoose.model('Product',productSchema);

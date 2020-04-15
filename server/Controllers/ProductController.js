@@ -42,7 +42,7 @@ var productController={
     getAllProduct:function(req,res)
     {
         Product.find()
-                .select('_id name price photo description')
+                .select('_id name price photo description related')
                 .then((allProduct)=>{
                     return res.status(200).json({
                         success:true,
@@ -62,6 +62,7 @@ var productController={
     {
         const id=req.params.productID;
         Product.findById(id)
+        .populate('related')
         .then((product)=>{
             res.status(200).json({
                 success:true,
