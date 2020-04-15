@@ -120,7 +120,34 @@ var productController={
     searchProduct:function(req,res)
     {
         var productName=req.params.productName;
-        var query={"name":{"$regex":productName}};
+        var query={
+            '$or':[
+                {
+                    'name':{
+                        '$regex':productName,
+                        '$options':'i'
+                    }
+                },
+                {
+                    'name':{
+                        '$regex':productName.toLowerCase(),
+                        '$options':'i'
+                    }
+                },
+                {
+                    'name':{
+                        '$regex':productName.toUpperCase(),
+                        '$options':'i'
+                    }
+                },
+                {
+                    'name':{
+                        '$regex': productName.slice(1,productName.length-1),
+                        '$options':'i'
+                    }
+                }
+            ]
+        }
         Product.find(query)
                 .then((products)=>{
                     return res.status(200).json({

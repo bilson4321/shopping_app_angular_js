@@ -22,7 +22,7 @@ var authenticationController={
                         "name":data[0].firstName+" "+data[0].lastName,
                         "role":data[0].role
                     }
-                    var token=jwt.sign(payload,"MySecret")
+                    var token=jwt.sign(payload,"mysecret")
                     return res.status(201).json({
                         success:true,
                         message:"Credential Verified Welcome",

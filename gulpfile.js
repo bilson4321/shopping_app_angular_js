@@ -12,8 +12,7 @@ gulp.task('start',()=>{
 
 gulp.task('server',()=>{
   return nodemon({
-        script:'./server/index.js',
-        watch:'./server/'
+        script:'./server/index.js'
   })
 });
 

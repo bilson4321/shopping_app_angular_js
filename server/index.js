@@ -1,10 +1,13 @@
 var express=require('express');
 var app=express();
 var bodyParser=require('body-parser');
+require('dotenv').config();
 
 const mongoose=require('mongoose');
 
 const mainRoutes=require('./Routes/mainRoutes');
+
+
 // var cors=require('cors');
 
 // app.use(cors());
@@ -12,7 +15,10 @@ const mainRoutes=require('./Routes/mainRoutes');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-mongoose.connect('mongodb://localhost:27017/shopping')
+const database_url=process.env.database_url;
+console.log("database",database_url);
+
+mongoose.connect(`${database_url}`,{ useNewUrlParser: true, useUnifiedTopology: true })
     .then(()=>{
         console.log('Database Connected');
     })
@@ -28,6 +34,8 @@ app.use(/^((?!(api)).)*/, (req, res) => {
 
 app.use('/api',mainRoutes);
 
-app.listen(4000, function(){
-    console.log('app listening on port 3000!');
-  })
+var port=4000;
+
+app.listen(port,()=>{
+   console.log(`app listening at ${port}`)
+})
