@@ -33,7 +33,7 @@ app.use(/^((?!(api)).)*/, (req, res) => {
 
 app.use('/api',mainRoutes);
 
-var port=4000;
+var port=process.env.PORT||4000;
 
 app.listen(port,()=>{
    console.log(`app listening at ${port}`)
