@@ -11,7 +11,7 @@ var productDetailComponent={
                     <h1>{{product.name}}</h1>
                     <p>Price: Rs.{{product.price}}</p>
                     <h3>Description</h3>
-                    <pre ng-bind-html="product.description"></pre>
+                    <div ng-bind-html="product.description"></div>
                     <button class="btn btn-primary" ui-sref=order({productID:product._id})>Buy</button>
                 </div>
             </div>
