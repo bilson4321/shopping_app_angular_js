@@ -2,6 +2,7 @@ import angular from 'angular';
 import 'angular-resource';
 import '@uirouter/angularjs';
 import 'angular-jwt';
+import 'angular-sanitize';
 
 import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
@@ -56,13 +57,16 @@ import userRegisterComponent from './Components/UserRegisterComponent';
 import ImageUploadDirective from './Directives/ImageUploadDirective';
 import ImageCropDirective from './Directives/ImageCropDirective';
 import CardGridController from './Controllers/CardGridController';
+import RelatedProductService from './Services/RelatedProductService';
+import CKEditorDirective from './Directives/CKEditorDirective';
 
 
 
 var app=angular.module("myApp",[
                                 'ui.router',
                                 'ngResource',
-                                'angular-jwt'
+                                'angular-jwt',
+                                'ngSanitize'
                                 ]);
 
 app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
@@ -186,7 +190,8 @@ app.service("ProductService",['$http',ProductService])
     .service("CategoryService",[`$http`,CategoryService])
     .service("OrderService",['$http',OrderService])
     .service("AuthService",['jwtHelper',AuthService])
-    .service("UserService",['$http',UserService]);
+    .service("UserService",['$http',UserService])
+    .service("RelatedProductService",['$http',RelatedProductService]);
 
 app.run(['$transitions','jwtHelper',function($transitions,jwtHelper){
     $transitions.onStart({},function(transition){
@@ -222,7 +227,7 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("AdminDashboardController",["$scope",AdminDashboardController])
     .controller("AddProductController",['$scope','ProductService','CategoryService',AddProductController])
     .controller("ViewProductController",['$scope','ProductService',ViewProductController])
-    .controller("EditProductController",['$scope','$stateParams','ProductService','CategoryService',EditProductController])
+    .controller("EditProductController",['$scope','$stateParams','ProductService','CategoryService','RelatedProductService',EditProductController])
     .controller("AddCategoryController",["$scope","CategoryService",AddCategoryController])
     .controller("ViewCategoryController",['$scope','CategoryService',ViewCategoryController])
     .controller("EditCategoryController",['$scope','$stateParams','CategoryService',EditCategoryController])
@@ -234,7 +239,8 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("CardGridController",['$scope',CardGridController]);
 
 app.directive("imageUpload",ImageUploadDirective)
-    .directive("imageCrop",['$document',ImageCropDirective]);
+    .directive("imageCrop",['$document',ImageCropDirective])
+    .directive("ckEditor",CKEditorDirective);
 
 app.component("app",appComponent)
     .component("navbar",navbarComponent)

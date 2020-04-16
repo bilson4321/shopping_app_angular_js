@@ -40,4 +40,16 @@ export default function(jwtHelper)
                 return "not found"
         }
     }
+    this.getRole=function()
+    {
+        var token=localStorage.getItem('Token');
+        if(token!==null)
+        {
+            var payload=jwtHelper.decodeToken(token);
+            if(payload.hasOwnProperty('role'))
+                return payload.role;
+            else
+                return "not found"
+        }
+    }
 }

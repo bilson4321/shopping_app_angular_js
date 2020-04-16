@@ -12,7 +12,7 @@ var editCategoryComponent={
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            <textarea class="form-control" rows="5" id="description" ng-model="description"></textarea>
+                            <textarea class="form-control" rows="5" id="description" ng-model="description" ck-editor></textarea>
                         </div>
                         <button type="submit" ng-click="update()" class="btn btn-primary">Update</button>
                     </form>

@@ -28,7 +28,7 @@ var addProductComponent={
                         <img src='{{cimage}}'>
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            <textarea class="form-control" rows="5" id="description" ng-model="description"></textarea>
+                            <textarea class="form-control" rows="5" id="description" ng-model="description" ck-editor></textarea>
                         </div>
                         <button type="submit" ng-click="submit()" class="btn btn-primary">Add Product</button>
                     </form>

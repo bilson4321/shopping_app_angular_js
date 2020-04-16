@@ -25,7 +25,7 @@ router.patch('/product/:productID',auth,productController.updateProduct);
 router.delete('/product/:productID',auth,productController.deleteProduct);
 router.get('/product/search/:productName',productController.searchProduct);
 
-router.post('/related',relatedProuctController.addRelated);
+router.post('/related',auth,relatedProuctController.addRelated);
 router.get('/related/:productID',relatedProuctController.getRelatedProduct);
 
 router.post('/user',userController.createUser);

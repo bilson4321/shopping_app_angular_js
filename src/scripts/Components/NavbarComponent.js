@@ -21,13 +21,22 @@ var navbarComponent={
                                 <a href="javascript:void(0)" ui-sref="login" class="btn btn-primary" ng-if="!isAuthenticated">
                                     Login
                                 </a>
-                                <div class="dropdown" ng-if="isAuthenticated">
+                                <div class="dropdown" ng-if="isAuthenticated&&userRole==='customer'">
                                     <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
                                         {{userName}}
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="javascript:void(0)" ui-sref="customerProfile">My Profile</a>
                                         <a class="dropdown-item" href="javasrcipt:void(0)" ui-sref="customerOrder">My Order</a>
+                                        <a class="dropdown-item" href="javasrcipt:void(0)" ng-click="logout()">Logout</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown" ng-if="isAuthenticated&&userRole==='admin'">
+                                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                                        {{userName}}
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="javascript:void(0)" ui-sref="admin">Dashboard</a>
                                         <a class="dropdown-item" href="javasrcipt:void(0)" ng-click="logout()">Logout</a>
                                     </div>
                                 </div>
@@ -46,9 +55,13 @@ var navbarComponent={
                 <div id="mobMenu" class="collapse">
                     <input type="text">
                     <li class="list-group-item" ng-if="!isAuthenticated"><a href="javascript:void(0)" ui-sref="login">Login</a></li>
-                    <ul class="list-group" ng-if="isAuthenticated">
+                    <ul class="list-group" ng-if="isAuthenticated&&userRole==='customer'">
                         <li class="list-group-item"><a href="javascript:void(0)" ui-sref="customerProfile">My Profile</a></li>
                         <li class="list-group-item"><a href="javasrcipt:void(0)" ui-sref="customerOrder">My Order</a></li>
+                        <li class="list-group-item"><a href="javasrcipt:void(0)" ng-click="logout()">Logout</a></li>
+                    </ul>
+                    <ul class="list-group" ng-if="isAuthenticated&&userRole==='admin'">
+                        <li class="list-group-item"><a href="javascript:void(0)" ui-sref="admin">Dashboard</a></li>
                         <li class="list-group-item"><a href="javasrcipt:void(0)" ng-click="logout()">Logout</a></li>
                     </ul>
                 </div>
