@@ -1,4 +1,4 @@
-export default function($scope,CategoryService)
+export default function($scope,CategoryService,toastr,$state)
 {
    
     $scope.submit=function()
@@ -7,12 +7,19 @@ export default function($scope,CategoryService)
             "name":$scope.name,
             "description":$scope.description,
         }
-        console.log("Category",category);
         CategoryService.addCategory(category).then((response)=>{
-            console.log("response received",response);
+            toastr.success("Category Added Successfully","Adding Category");
+            $state.go('viewCategory');
         })
         .catch(err=>{
-            console.log("error message",err);
+            if(err.data===null)
+            {
+                toastr.error("Couldn't connect to server","Connection Error!!")
+            }
+            else
+            {
+                toastr.error(''+err.data.error,'Error Adding Category');
+            }  
         });
     }
 }

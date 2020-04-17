@@ -1,8 +1,18 @@
-export default function($scope,ProductService,CategoryService)
+export default function($scope,ProductService,CategoryService,toastr,$state)
 {
     $scope.categories=[];
     CategoryService.getAllCategory().then((response)=>{
         $scope.categories=response.data.categories;
+    })
+    .catch(err=>{
+        if(err.data===null)
+        {
+            toastr.error("error connecting to server, please try again","Connection Error")
+        }
+        else{
+            toastr.error("error fetching data, please try again","Error getting data")
+        }
+        
     })
    
     $scope.submit=function()
@@ -14,13 +24,19 @@ export default function($scope,ProductService,CategoryService)
             "description":$scope.description,
             "categoryID":$scope.categoryID
         }
-        console.log("product",product);
-        console.dir($scope.myImage);
         ProductService.addProduct(product,$scope.cimage).then((response)=>{
-            console.log("response received",response);
+            toastr.success("Product Added Successfully","Adding Product");
+            $state.go('viewProduct');
         })
         .catch(err=>{
-            console.log("error message",err);
+            if(err.data===null)
+            {
+                toastr.error("Couldn't connect to server","Connection Error!!")
+            }
+            else
+            {
+                toastr.error(''+err.data.error,'Error Adding Product');
+            }  
         });
     }
 }

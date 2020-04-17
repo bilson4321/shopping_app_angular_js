@@ -1,8 +1,7 @@
-export default function($scope,AuthService,UserService)
+export default function($scope,AuthService,UserService,toastr)
 {
     $scope.userID=AuthService.getUserId();
     UserService.findbyID($scope.userID).then((res)=>{
-        console.log(res.data.User);
         $scope.firstName=res.data.User.firstName;
         $scope.lastName=res.data.User.lastName;
         $scope.address=res.data.User.address;
@@ -20,7 +19,16 @@ export default function($scope,AuthService,UserService)
             "email":$scope.email
         }
         UserService.updateUser($scope.userID,newData).then((res)=>{
-            console.log(res);
+            toastr.success("Successfully data Updated","Data Updated");
+        })
+        .catch(err=>{
+            if(err.data===null)
+            {
+            toastr.error("Cannot connect to server","Server Error");
+            }
+            else{
+                toastr.error(""+err.data.error,"Error Updating Data");
+            }
         });
     }
 }

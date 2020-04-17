@@ -1,18 +1,28 @@
-export default function($scope,$stateParams,ProductService,CategoryService,RelatedProductService)
+export default function($scope,$stateParams,ProductService,CategoryService,RelatedProductService,toastr)
 {
     $scope.id=$stateParams.productID;
     $scope.selectedRelatedId='';
     $scope.searchResult=[];
     $scope.addRelatedDisable=true;
     ProductService.findbyID($scope.id).then(function(response){
-            
         $scope.product=response.data.Product;
         console.log($scope.product);
         $scope.name=$scope.product.name;
         $scope.price=$scope.product.price;
         $scope.description=$scope.product.description;
         $scope.related=$scope.product.related;
-    });  
+    },
+    (err)=>{
+        if(err.data===null)
+        {
+            toastr.error("Cannot connect to server","Server Error");
+        }
+        else{
+            toastr.error(""+err.data.error,"Error fetching Data");
+            $state.go('viewProduct');
+        }
+    }
+    );  
     $scope.update=function()
     {
         var newProduct={
@@ -22,7 +32,17 @@ export default function($scope,$stateParams,ProductService,CategoryService,Relat
             "description":$scope.description
         }
         ProductService.updateProduct($scope.id,newProduct).then((res)=>{
-            console.log(res);
+            toastr.success("Data Updated Successfully","Success");
+        },
+        err=>{
+            if(err.data===null)
+            {
+                toastr.error("Cannot connect to server","Server Error");
+            }
+            else
+            {
+                toastr.error(""+err.data.error,"Error Updating");
+            }
         });
     }
     $scope.fetchProduct=function()

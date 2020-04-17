@@ -6,7 +6,9 @@ const categorySchema=new mongoose.Schema({
     _id:mongoose.Schema.Types.ObjectId,
     name:{
         type:String,
-        required:true
+        required:true,
+        index:true,
+        unique:true
     },
     description:{
         type:String,

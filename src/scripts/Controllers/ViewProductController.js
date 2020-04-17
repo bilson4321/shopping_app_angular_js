@@ -1,4 +1,4 @@
-export default function($scope,ProductService)
+export default function($scope,ProductService,toastr)
 {
     $scope.products=[];
     ProductService.getAllProduct().then((response)=>{
@@ -7,15 +7,20 @@ export default function($scope,ProductService)
 
     $scope.deleteProduct=function(id)
     {
-        console.log(id);
         ProductService.deleteProduct(id).then((response)=>{
-            console.log(response);
+            toastr.success("Successfully data deleted","Data Deletion");
             ProductService.getAllProduct().then((response)=>{
                 $scope.products=response.data.products;
             })
         })
         .catch(err=>{
-            console.log("Error",err);
+            if(err.data===null)
+            {
+            toastr.error("Cannot connect to server","Server Error");
+            }
+            else{
+                toastr.error(""+err.data.error,"Error Deleting Data");
+            }
         });
     }
 }

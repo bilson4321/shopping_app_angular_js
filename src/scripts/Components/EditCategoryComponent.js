@@ -5,7 +5,7 @@ var editCategoryComponent={
             <div class="row">
                 <div class="col-md-6 mx-auto">
                     <form class="my-4">
-                        <h4>Add Category</h4>
+                        <h4>Edit Category</h4>
                         <div class="form-group">
                             <label for="name">Category Name</label>
                             <input type="text" class="form-control" placeholder="Enter category name" id="name" ng-model="name">

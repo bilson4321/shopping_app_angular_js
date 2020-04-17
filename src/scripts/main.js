@@ -3,6 +3,8 @@ import 'angular-resource';
 import '@uirouter/angularjs';
 import 'angular-jwt';
 import 'angular-sanitize';
+import 'angular-toastr';
+import 'angular-animate';
 
 import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
@@ -66,6 +68,8 @@ var app=angular.module("myApp",[
                                 'ui.router',
                                 'ngResource',
                                 'angular-jwt',
+                                'toastr',
+                                'ngAnimate',
                                 'ngSanitize'
                                 ]);
 
@@ -223,18 +227,18 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("CardController",['$scope',CardController])
     .controller("ProductDetailController",['$scope','$stateParams','ProductService',ProductDetailController])
     .controller("SearchPageController",['$scope','$stateParams','ProductService',SearchPageController])
-    .controller("LoginController",["$scope","$http","$state","jwtHelper",LoginController])
+    .controller("LoginController",["$scope","$http","$state","jwtHelper","toastr",LoginController])
     .controller("AdminDashboardController",["$scope",AdminDashboardController])
-    .controller("AddProductController",['$scope','ProductService','CategoryService',AddProductController])
-    .controller("ViewProductController",['$scope','ProductService',ViewProductController])
-    .controller("EditProductController",['$scope','$stateParams','ProductService','CategoryService','RelatedProductService',EditProductController])
-    .controller("AddCategoryController",["$scope","CategoryService",AddCategoryController])
-    .controller("ViewCategoryController",['$scope','CategoryService',ViewCategoryController])
-    .controller("EditCategoryController",['$scope','$stateParams','CategoryService',EditCategoryController])
+    .controller("AddProductController",['$scope','ProductService','CategoryService','toastr','$state',AddProductController])
+    .controller("ViewProductController",['$scope','ProductService','toastr',ViewProductController])
+    .controller("EditProductController",['$scope','$stateParams','ProductService','CategoryService','RelatedProductService','toastr',EditProductController])
+    .controller("AddCategoryController",["$scope","CategoryService","toastr","$state",AddCategoryController])
+    .controller("ViewCategoryController",['$scope','CategoryService','toastr',ViewCategoryController])
+    .controller("EditCategoryController",['$scope','$stateParams','CategoryService','toastr','$state',EditCategoryController])
     .controller("OrderProductController",['$scope','$stateParams','ProductService',"AuthService","OrderService",OrderProductController])
     .controller("CustomerOrderController",["$scope",'OrderService','AuthService',CustomerOrderController])
-    .controller("EditCustomerProfileController",["$scope","AuthService","UserService",EditCustomerProfileController])
-    .controller("UserRegisterController",["$scope","UserService",UserRegisterController])
+    .controller("EditCustomerProfileController",["$scope","AuthService","UserService",'toastr',EditCustomerProfileController])
+    .controller("UserRegisterController",["$scope","UserService","toastr","$state",UserRegisterController])
     .controller("ShopByCategoryController",["$scope","$stateParams","CategoryService",ShopByCategoryController])
     .controller("CardGridController",['$scope',CardGridController]);
 

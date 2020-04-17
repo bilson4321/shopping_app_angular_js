@@ -1,8 +1,8 @@
-export default function($scope,$http,$state,jwtHelper)
+export default function($scope,$http,$state,jwtHelper,toastr)
 {
     if(localStorage.hasOwnProperty('Token'))
     {
-        $state.go('admin');
+        $state.go('home');
     }
     $scope.login=function()
     {
@@ -10,7 +10,6 @@ export default function($scope,$http,$state,jwtHelper)
             email:$scope.email,
             password:$scope.password
         };
-        console.log("data",data);
         $http.post('/api/authenticate/',data).then((response)=>{
             localStorage.setItem('Token',response.data.Token)
             var payload=jwtHelper.decodeToken(response.data.Token);
@@ -20,8 +19,15 @@ export default function($scope,$http,$state,jwtHelper)
             $state.go("customerOrder");
         },
         (err)=>{
-            console.log("error",err)
-            console.log("not verified")
+            if(err.data===null)
+            {
+                toastr.error("Couldn't connect to server","Connection Error!!")
+            }
+            else
+            {
+                toastr.error(''+err.data.error,'Error Logging In');
+                $scope.password='';
+            }  
         }
         )
     }   
