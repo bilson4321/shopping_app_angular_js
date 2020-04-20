@@ -1,13 +1,17 @@
 var adminDashboardComponent={
+    controller:'AdminDashboardController',
     template:`
         <div class="container">
-        Admin dashboard
-            <ul>
-                <li ui-sref="addProduct">add Product</li>
-                <li ui-sref="viewProduct">View Product</li>
-                <li ui-sref="addCategory">add Category</li>
-                <li ui-sref="viewCategory">View Category</li>
-            </ul>
+            <h3 class="my-4">Admin dashboard</h3>
+            <div class="row my-4">
+                <div class="col-md-6">
+                    <h3>New Order</h3>
+                    <cjs-bar dataset="someData" options="someOptions" segment-stroke-width="5"></cjs-bar>
+                </div>
+                <div class="col-md-6">
+                    <h3>test </h3>
+                </div>
+            </div>
         </div>
     `
 }

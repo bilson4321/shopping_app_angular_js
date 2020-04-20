@@ -5,6 +5,7 @@ import 'angular-jwt';
 import 'angular-sanitize';
 import 'angular-toastr';
 import 'angular-animate';
+import 'angular-chartjs';
 
 import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
@@ -61,6 +62,7 @@ import ImageCropDirective from './Directives/ImageCropDirective';
 import CardGridController from './Controllers/CardGridController';
 import RelatedProductService from './Services/RelatedProductService';
 import CKEditorDirective from './Directives/CKEditorDirective';
+import tableComponent from './Components/TableComponent';
 
 
 
@@ -70,6 +72,7 @@ var app=angular.module("myApp",[
                                 'angular-jwt',
                                 'toastr',
                                 'ngAnimate',
+                                'chartjs',
                                 'ngSanitize'
                                 ]);
 
@@ -120,12 +123,12 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
             role:'admin'
         })
         .state('editProduct',{
-            url:'/editProduct?productID',
+            url:'/editProduct?id',
             template:"<sidebar></sidebar><div class='content'><edit-product></edit-product></div></div></div></div>",
             authenticate:true,
             role:'admin',
             params:{
-                productID:'value'
+                id:'value'
             }
         })
         .state('viewProduct',{
@@ -147,12 +150,12 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
             role:'admin'
         })
         .state('editCategory',{
-            url:'/editCategory?categoryID',
+            url:'/editCategory?id',
             template:"<sidebar></sidebar><div class='content'><edit-category></edit-category></div></div></div></div>",
             authenticate:true,
             role:'admin',
             params:{
-                categoryID:'value'
+                id:'value'
             }
         })
         .state('customerOrder',{
@@ -266,4 +269,5 @@ app.component("app",appComponent)
     .component("editCustomer",editCustomerProfileComponent)
     .component("userRegister",userRegisterComponent)
     .component("shopByCategory",shopByCategoryComponent)
-    .component("cardGrid",cardGridComponent);
+    .component("cardGrid",cardGridComponent)
+    .component("tableShopping",tableComponent);

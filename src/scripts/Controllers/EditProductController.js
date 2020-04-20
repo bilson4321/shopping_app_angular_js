@@ -1,6 +1,6 @@
 export default function($scope,$stateParams,ProductService,CategoryService,RelatedProductService,toastr)
 {
-    $scope.id=$stateParams.productID;
+    $scope.id=$stateParams.id;
     $scope.selectedRelatedId='';
     $scope.searchResult=[];
     $scope.addRelatedDisable=true;

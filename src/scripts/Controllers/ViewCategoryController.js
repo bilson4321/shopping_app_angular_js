@@ -7,6 +7,7 @@ export default function($scope,CategoryService,toastr)
 
     $scope.deleteCategory=function(id)
     {
+        console.log("delete");
         CategoryService.deleteCategory(id).then((response)=>{
             console.log(response);
             CategoryService.getAllCategory().then((response)=>{
@@ -24,4 +25,6 @@ export default function($scope,CategoryService,toastr)
             }
         });
     }
+
+    $scope.tableHeading=['name']
 }

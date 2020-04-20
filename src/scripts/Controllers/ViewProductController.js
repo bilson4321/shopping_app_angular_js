@@ -1,12 +1,16 @@
 export default function($scope,ProductService,toastr)
 {
+    $scope.loading=true;
     $scope.products=[];
+    
     ProductService.getAllProduct().then((response)=>{
         $scope.products=response.data.products;
+        $scope.loading=false;
     })
 
     $scope.deleteProduct=function(id)
     {
+        console.log('delete');
         ProductService.deleteProduct(id).then((response)=>{
             toastr.success("Successfully data deleted","Data Deletion");
             ProductService.getAllProduct().then((response)=>{
@@ -23,4 +27,5 @@ export default function($scope,ProductService,toastr)
             }
         });
     }
+    $scope.tableHeading=['name','price'];
 }

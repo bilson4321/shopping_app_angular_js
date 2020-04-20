@@ -1,6 +1,6 @@
 export default function($scope,$stateParams,CategoryService,toastr,$state)
 {
-    $scope.id=$stateParams.categoryID;
+    $scope.id=$stateParams.id;
   
     CategoryService.findByID($scope.id).then(function(response){ 
         $scope.category=response.data.Category;
