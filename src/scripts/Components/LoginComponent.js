@@ -15,6 +15,7 @@ var loginComponent={
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" placeholder="Enter password" id="password" ng-model="password">
+                                <a ui-sref="forgotPassword">Forgot password??</a>
                             </div>
                             <button type="submit" ng-click="login()" class="btn btn-primary">Login</button>
                         </form>

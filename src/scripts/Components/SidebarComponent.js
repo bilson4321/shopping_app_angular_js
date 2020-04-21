@@ -26,6 +26,7 @@ var sidebarComponent={
                     <a href="javascript:void(0)" ui-sref="viewProduct">View Product</a>
                     <a href="javascript:void(0)" ui-sref="addCategory">Add Category</a>
                     <a href="javascript:void(0)" ui-sref="viewCategory">View Category</a>
+                    <a href="javascript:void(0)" ui-sref="viewUser">View Users</a>
                     <a href="javascript:void(0)" ng-click="logout()">Logout</a>
                </div>
     `

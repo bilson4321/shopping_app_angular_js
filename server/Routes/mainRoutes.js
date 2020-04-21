@@ -40,5 +40,8 @@ router.get('/order/:orderID',auth,orderController.getOrderById)
 router.get('/orderByUser/:userID',auth,orderController.getOrderByUserID);
 
 router.post('/authenticate',authenticationController.authenticate);
+router.post('/getQuestion',authenticationController.getQuestion);
+router.post('/getTempToken',authenticationController.getTempToken);
+router.post('/changePassword',authenticationController.changePassword);
 
 module.exports=router;

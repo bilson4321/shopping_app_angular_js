@@ -5,7 +5,7 @@ import 'angular-jwt';
 import 'angular-sanitize';
 import 'angular-toastr';
 import 'angular-animate';
-import 'angular-chartjs';
+
 
 import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
@@ -55,6 +55,7 @@ import editCustomerProfileComponent from './Components/EditCustomerProfileCompon
 import cardGridComponent from './Components/CardGridComponent';
 import shopByCategoryComponent from './Components/ShopByCategoryComponent';
 import userRegisterComponent from './Components/UserRegisterComponent';
+import forgotPasswordComponent from './Components/ForgotPasswordComponent';
 
 
 import ImageUploadDirective from './Directives/ImageUploadDirective';
@@ -63,6 +64,11 @@ import CardGridController from './Controllers/CardGridController';
 import RelatedProductService from './Services/RelatedProductService';
 import CKEditorDirective from './Directives/CKEditorDirective';
 import tableComponent from './Components/TableComponent';
+import ForgotPasswordController from './Controllers/ForgotPasswordController';
+import changePasswordComponent from './Components/changePasswordComponent';
+import ChangePasswordController from './Controllers/ChangePasswordController';
+import viewUserComponent from './Components/ViewUserComponent';
+import ViewUserController from './Controllers/ViewUserController';
 
 
 
@@ -72,7 +78,6 @@ var app=angular.module("myApp",[
                                 'angular-jwt',
                                 'toastr',
                                 'ngAnimate',
-                                'chartjs',
                                 'ngSanitize'
                                 ]);
 
@@ -158,6 +163,12 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
                 id:'value'
             }
         })
+        .state('viewUser',{
+            url:'/viewUser',
+            template:"<sidebar></sidebar><div class='content'><view-user></view-user></div></div></div></div>",
+            authenticate:true,
+            role:'admin'
+        })
         .state('customerOrder',{
             url:'/customerOrder',
             template:"<navbar></navbar><customer-order></customer-order>",
@@ -188,6 +199,16 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
             url:'/shopBy?categoryID',
             template:"<navbar></navbar><shop-by-category></shop-by-category>",
             authenticate:false
+        })
+        .state('forgotPassword',{
+            url:'/forgotPassword',
+            template:"<navbar></navbar><forgot-password></forgot-password>",
+            authenticate:false
+        })
+        .state('changePassword',{
+            url:'/changePassword',
+            template:"<change-password></change-password>",
+            authenticate:true
         });
         
     $urlRouterProvider.otherwise('/home');
@@ -243,7 +264,10 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("EditCustomerProfileController",["$scope","AuthService","UserService",'toastr',EditCustomerProfileController])
     .controller("UserRegisterController",["$scope","UserService","toastr","$state",UserRegisterController])
     .controller("ShopByCategoryController",["$scope","$stateParams","CategoryService",ShopByCategoryController])
-    .controller("CardGridController",['$scope',CardGridController]);
+    .controller("CardGridController",['$scope',CardGridController])
+    .controller("ForgotPasswordController",['$scope','UserService','toastr','$state',ForgotPasswordController])
+    .controller("ChangePasswordController",['$scope','AuthService','UserService','toastr','$state',ChangePasswordController])
+    .controller("ViewUserController",['$scope','UserService',ViewUserController]);
 
 app.directive("imageUpload",ImageUploadDirective)
     .directive("imageCrop",['$document',ImageCropDirective])
@@ -270,4 +294,7 @@ app.component("app",appComponent)
     .component("userRegister",userRegisterComponent)
     .component("shopByCategory",shopByCategoryComponent)
     .component("cardGrid",cardGridComponent)
-    .component("tableShopping",tableComponent);
+    .component("tableShopping",tableComponent)
+    .component("forgotPassword",forgotPasswordComponent)
+    .component("changePassword",changePasswordComponent)
+    .component("viewUser",viewUserComponent);

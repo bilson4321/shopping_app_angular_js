@@ -8,7 +8,9 @@ export default function($scope,UserService,toastr,$state)
             "address":$scope.address,
             "mobile":$scope.mobile,
             "email":$scope.email,
-            "password":$scope.password
+            "password":$scope.password,
+            "question1":$scope.question1,
+            "answer1":$scope.answer1
         }
         UserService.createUser(newUser).then((res)=>{
             toastr.success(""+res.data.message,"Success");

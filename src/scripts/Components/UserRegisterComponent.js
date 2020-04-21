@@ -30,6 +30,14 @@ var userRegisterComponent={
                     <label for="password">Password:</label>
                     <input type="password" class="form-control" placeholder="Enter password" id="password" ng-model="password">
                 </div>
+                <div class="form-group">
+                    <label for="question">Security Question:</label>
+                    <input type="text" class="form-control" placeholder="Enter a Question" id="question" ng-model="question1" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="answer">Your Answer:</label>
+                    <input type="text" class="form-control" placeholder="Enter your answer" id="answer" ng-model="answer1" autocomplete="off">
+                </div>
                 <button type="submit" ng-click="register()" class="btn btn-primary">Register</button>
             </form>
         </div>

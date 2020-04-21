@@ -16,7 +16,9 @@ var userController={
                 email:req.body.email,
                 password:hashedPass,
                 address:req.body.address,
-                role:req.body.role
+                role:req.body.role,
+                securityQuestion1:req.body.question1,
+                securityAnswer1:req.body.answer1
             })
             return user
                     .save()
@@ -40,7 +42,7 @@ var userController={
     getAllUser:function(req,res)
     {
         User.find()
-            .select('_id firstName lastName email phone role address password')
+            .select('_id firstName lastName email phone role address')
             .then((allUser)=>{
                 return res.status(200).json({
                     success:true,

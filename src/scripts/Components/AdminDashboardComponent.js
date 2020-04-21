@@ -6,7 +6,8 @@ var adminDashboardComponent={
             <div class="row my-4">
                 <div class="col-md-6">
                     <h3>New Order</h3>
-                    <cjs-bar dataset="someData" options="someOptions" segment-stroke-width="5"></cjs-bar>
+                    {{test}}
+                    
                 </div>
                 <div class="col-md-6">
                     <h3>test </h3>

@@ -34,6 +34,14 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true,
         default:"customer"
+    },
+    securityQuestion1:{
+        type:String,
+        required:true
+    },
+    securityAnswer1:{
+        type:String,
+        required:true
     }
 });
 
