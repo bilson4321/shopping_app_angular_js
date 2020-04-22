@@ -52,6 +52,16 @@
     padding: 5px 30px;
     font-size: 0.99em;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .content
 {
     margin-left: 200px;

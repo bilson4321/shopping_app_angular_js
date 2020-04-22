@@ -8,27 +8,30 @@ export default function($scope,AuthService,UserService,toastr)
         $scope.mobile=res.data.User.mobile;
         $scope.email=res.data.User.email;
     });
-    $scope.update=function()
+    $scope.update=function(isValid)
     {
-        var newData={
-            "id":$scope.userID,
-            "firstName":$scope.firstName,
-            "lastName":$scope.lastName,
-            "address":$scope.address,
-            "mobile":$scope.mobile,
-            "email":$scope.email
+        if(isValid)
+        {
+            var newData={
+                "id":$scope.userID,
+                "firstName":$scope.firstName,
+                "lastName":$scope.lastName,
+                "address":$scope.address,
+                "mobile":$scope.mobile,
+                "email":$scope.email
+            }
+            UserService.updateUser($scope.userID,newData).then((res)=>{
+                toastr.success("Successfully data Updated","Data Updated");
+            })
+            .catch(err=>{
+                if(err.data===null)
+                {
+                toastr.error("Cannot connect to server","Server Error");
+                }
+                else{
+                    toastr.error(""+err.data.error,"Error Updating Data");
+                }
+            });
         }
-        UserService.updateUser($scope.userID,newData).then((res)=>{
-            toastr.success("Successfully data Updated","Data Updated");
-        })
-        .catch(err=>{
-            if(err.data===null)
-            {
-            toastr.error("Cannot connect to server","Server Error");
-            }
-            else{
-                toastr.error(""+err.data.error,"Error Updating Data");
-            }
-        });
     }
 }

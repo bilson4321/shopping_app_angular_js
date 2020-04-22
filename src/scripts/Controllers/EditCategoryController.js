@@ -19,27 +19,31 @@ export default function($scope,$stateParams,CategoryService,toastr,$state)
     }
     );  
     
-    $scope.update=function()
+    $scope.update=function(isValid)
     {
-        var newCategory={
-            "id":$scope.id,
-            "name":$scope.name,
-            "description":$scope.description
-        }
-        CategoryService.updateCategory($scope.id,newCategory).then((res)=>{
-            toastr.success("Data Updated Successfully","Success");
-            $state.go('viewCategory');
-        },
-        err=>{
-            if(err.data===null)
-            {
-                toastr.error("Cannot connect to server","Server Error");
+        if(isValid)
+        {
+            var newCategory={
+                "id":$scope.id,
+                "name":$scope.name,
+                "description":$scope.description
             }
-            else
-            {
-                toastr.error(""+err.data.error,"Error Updating");
+            CategoryService.updateCategory($scope.id,newCategory).then((res)=>{
+                toastr.success("Data Updated Successfully","Success");
+                $state.go('viewCategory');
+            },
+            err=>{
+                if(err.data===null)
+                {
+                    toastr.error("Cannot connect to server","Server Error");
+                }
+                else
+                {
+                    toastr.error(""+err.data.error,"Error Updating");
+                }
             }
+            );
         }
-        );
+        
     }
 }

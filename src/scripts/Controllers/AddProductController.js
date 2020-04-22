@@ -15,28 +15,30 @@ export default function($scope,ProductService,CategoryService,toastr,$state)
         
     })
    
-    $scope.submit=function()
+    $scope.submit=function(isValid)
     {
-       
-        var product={
-            "name":$scope.name,
-            "price":$scope.price,
-            "description":$scope.description,
-            "categoryID":$scope.categoryID
-        }
-        ProductService.addProduct(product,$scope.cimage).then((response)=>{
-            toastr.success("Product Added Successfully","Adding Product");
-            $state.go('viewProduct');
-        })
-        .catch(err=>{
-            if(err.data===null)
-            {
-                toastr.error("Couldn't connect to server","Connection Error!!")
+       if(isValid)
+       {
+            var product={
+                "name":$scope.name,
+                "price":$scope.price,
+                "description":$scope.description,
+                "categoryID":$scope.categoryID
             }
-            else
-            {
-                toastr.error(''+err.data.error,'Error Adding Product');
-            }  
-        });
+            ProductService.addProduct(product,$scope.cimage).then((response)=>{
+                toastr.success("Product Added Successfully","Adding Product");
+                $state.go('viewProduct');
+            })
+            .catch(err=>{
+                if(err.data===null)
+                {
+                    toastr.error("Couldn't connect to server","Connection Error!!")
+                }
+                else
+                {
+                    toastr.error(''+err.data.error,'Error Adding Product');
+                }  
+            });
+       }  
     }
 }
