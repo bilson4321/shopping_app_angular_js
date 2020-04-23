@@ -261,7 +261,7 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("AddCategoryController",["$scope","CategoryService","toastr","$state",AddCategoryController])
     .controller("ViewCategoryController",['$scope','CategoryService','toastr',ViewCategoryController])
     .controller("EditCategoryController",['$scope','$stateParams','CategoryService','toastr','$state',EditCategoryController])
-    .controller("OrderProductController",['$scope','$stateParams','ProductService',"AuthService","OrderService",OrderProductController])
+    .controller("OrderProductController",['$scope','$stateParams','ProductService',"AuthService","OrderService","toastr","$state",OrderProductController])
     .controller("CustomerOrderController",["$scope",'OrderService','AuthService',CustomerOrderController])
     .controller("EditCustomerProfileController",["$scope","AuthService","UserService",'toastr',EditCustomerProfileController])
     .controller("UserRegisterController",["$scope","UserService","toastr","$state",UserRegisterController])
