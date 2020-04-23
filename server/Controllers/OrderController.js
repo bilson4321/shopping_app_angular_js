@@ -33,7 +33,7 @@ var orderController={
     getAllOrder:function(req,res)
     {
         Order.find()
-            .select(' _id user product quantity date')
+            .sort({createdAt:1})
             .populate('user')
             .populate('product')
             .then((allOrder)=>{

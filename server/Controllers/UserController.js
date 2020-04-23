@@ -42,7 +42,7 @@ var userController={
     getAllUser:function(req,res)
     {
         User.find()
-            .select('_id firstName lastName email phone role address')
+            .sort({createdAt:1})
             .then((allUser)=>{
                 return res.status(200).json({
                     success:true,

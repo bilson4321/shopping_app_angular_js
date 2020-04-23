@@ -4,7 +4,7 @@ var addProductComponent={
         <div class="container">
             <div class="row">
                 <div class="col-md-6 mx-auto">
-                    <form class="my-4" name="productForm" ng-submit="submit(productForm.$valid)" novalidate>
+                    <form class="my-4" name="productForm" novalidate>
                         <h4>Add Product</h4>
                         <div class="form-group">
                             <label for="name">Product Name</label>
@@ -32,7 +32,7 @@ var addProductComponent={
                             <label for="description">Description:</label>
                             <textarea class="form-control" rows="5" id="description" ng-model="description" ck-editor></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <button type="submit" ng-click="submit(productForm.$valid)" class="btn btn-primary">Add Product</button>
                     </form>
                 </div>
             </div>

@@ -9,13 +9,17 @@ var editProductComponent={
                         <div class="form-group">
                             <label for="name">Product Name</label>
                             <input type="text" class="form-control" placeholder="Enter product name" id="name" ng-model="name" name="productName" required>
-                            <span style="color:red" ng-show="productForm.$submitted && productForm.productName.$pristine">Name is required</span>
+                            <span style="color:red" ng-show="productForm.productName.$dirty && productForm.productName.$invalid">
+                                <span ng-show="productForm.productName.$error.required">Name is required</span>
+                            </span>
                         </div>
                         <div class="form-group">
                             <label for="price">Price:</label>
                             <input type="number" class="form-control" placeholder="Enter product Price" id="price" ng-model="price" name="price" required>
-                            <span style="color:red" ng-show="productForm.$submitted && productForm.price.$pristine">Price is required</span>
-                        </div>
+                            <span style="color:red" ng-show="productForm.price.$dirty && productForm.price.$invalid">
+                                <span ng-show="productForm.price.$error.required">Name is required</span>
+                            </span>
+                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
                             <textarea class="form-control" rows="5" ck-editor id="description" ng-model="description" required></textarea>

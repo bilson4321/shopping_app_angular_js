@@ -30,21 +30,18 @@
     "angular-sanitize": "^1.7.9",
     "angular-toastr": "^2.1.1",
     "angular-ui-router": "^1.0.25",
-    "angularjs-fusioncharts": "^5.0.3",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
+    "chart.js": "^2.9.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "fusioncharts": "^3.15.1-sr.1",
     "gulp-concat": "^2.6.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.6",
     "multer": "^1.4.2",
-    "ng-cropper": "^1.0.0",
-    "nodemon": "^2.0.2",
-    "zingchart-angularjs": "^1.2.0"
+    "nodemon": "^2.0.2"
   },
   "engines": {
     "node": "10.x"

@@ -5,7 +5,8 @@ import 'angular-jwt';
 import 'angular-sanitize';
 import 'angular-toastr';
 import 'angular-animate';
-
+import 'angular-chart.js/dist/angular-chart';
+import 'chart.js/dist/Chart';
 
 import ProductService from './Services/ProductService';
 import CategoryService from './Services/CategoryService';
@@ -78,7 +79,8 @@ var app=angular.module("myApp",[
                                 'angular-jwt',
                                 'toastr',
                                 'ngAnimate',
-                                'ngSanitize'
+                                'ngSanitize',
+                                'chart.js'
                                 ]);
 
 app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
@@ -252,7 +254,7 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("ProductDetailController",['$scope','$stateParams','ProductService',ProductDetailController])
     .controller("SearchPageController",['$scope','$stateParams','ProductService',SearchPageController])
     .controller("LoginController",["$scope","$http","$state","jwtHelper","toastr",LoginController])
-    .controller("AdminDashboardController",["$scope",AdminDashboardController])
+    .controller("AdminDashboardController",["$scope","UserService","OrderService","ProductService",AdminDashboardController])
     .controller("AddProductController",['$scope','ProductService','CategoryService','toastr','$state',AddProductController])
     .controller("ViewProductController",['$scope','ProductService','toastr',ViewProductController])
     .controller("EditProductController",['$scope','$stateParams','ProductService','CategoryService','RelatedProductService','toastr',EditProductController])

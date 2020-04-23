@@ -9,7 +9,9 @@ var editCategoryComponent={
                         <div class="form-group">
                             <label for="name">Category Name</label>
                             <input type="text" class="form-control" placeholder="Enter category name" id="name" ng-model="name" name="categoryName" required>
-                            <span style="color:red" ng-show="categoryForm.$submitted && categoryForm.categoryName.$pristine">Name is required</span>
+                            <span style="color:red" ng-show="categoryForm.categoryName.$dirty && categoryForm.categoryName.$invalid">
+                                <span ng-show="categoryForm.categoryName.$error.required">Name is required</span>
+                            </span>
                         </div>
                         <div class="form-group">
                             <label for="description">Description:</label>
