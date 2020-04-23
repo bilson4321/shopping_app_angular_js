@@ -5,6 +5,8 @@ var User=require('./../Models/User');
 var bcryptService=require('../Services/Bcrypt');
 var jwt=require('jsonwebtoken');
 
+require('dotenv').config();
+
 var authenticationController={
     authenticate:function(req,res)
     {
@@ -22,7 +24,7 @@ var authenticationController={
                         "name":data[0].firstName+" "+data[0].lastName,
                         "role":data[0].role
                     }
-                    var token=jwt.sign(payload,"mysecret")
+                    var token=jwt.sign(payload,process.env.secret)
                     return res.status(201).json({
                         success:true,
                         message:"Credential Verified Welcome",
@@ -80,7 +82,7 @@ var authenticationController={
                         "id":data[0]._id,
                         "name":"temp token"
                     }
-                    var token=jwt.sign(payload,"mysecret")
+                    var token=jwt.sign(payload,process.env.secret)
                     return res.status(201).json({
                         success:true,
                         message:"Temp token",

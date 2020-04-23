@@ -1,11 +1,12 @@
 const jwt=require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports=function(req,res,next)
 {
     try{
         const token=req.headers.authorization;
         console.log("in header",token);
-        const decodedToken=jwt.verify(token,"mysecret");
+        const decodedToken=jwt.verify(token,process.env.secret);
         const userId=decodedToken.id;
         console.log("Decoded Token",userId);
         if(userId===null)

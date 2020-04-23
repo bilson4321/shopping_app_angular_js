@@ -7,6 +7,15 @@ export default function($scope,ProductService,toastr)
         $scope.products=response.data.products;
         $scope.loading=false;
     })
+    .catch(err=>{
+        if(err.data===null)
+        {
+        toastr.error("Cannot connect to server","Server Error");
+        }
+        else{
+            toastr.error(""+err.data.error,"Error Getting Data");
+        }
+    });
 
     $scope.deleteProduct=function(id)
     {
