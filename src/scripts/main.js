@@ -70,6 +70,9 @@ import changePasswordComponent from './Components/changePasswordComponent';
 import ChangePasswordController from './Controllers/ChangePasswordController';
 import viewUserComponent from './Components/ViewUserComponent';
 import ViewUserController from './Controllers/ViewUserController';
+import HomePageService from './Services/HomePageService';
+import HomePageEditController from './Controllers/HomePageEditController';
+import homePageEditComponent from './Components/HomePageEditComponent';
 
 
 
@@ -171,6 +174,12 @@ app.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRo
             authenticate:true,
             role:'admin'
         })
+        .state('editHome',{
+            url:'/editHome',
+            template:"<sidebar></sidebar><div class='content'><edit-home></edit-home></div></div></div></div>",
+            authenticate:true,
+            role:'admin'
+        })
         .state('customerOrder',{
             url:'/customerOrder',
             template:"<navbar></navbar><customer-order></customer-order>",
@@ -221,7 +230,8 @@ app.service("ProductService",['$http',ProductService])
     .service("OrderService",['$http',OrderService])
     .service("AuthService",['jwtHelper',AuthService])
     .service("UserService",['$http',UserService])
-    .service("RelatedProductService",['$http',RelatedProductService]);
+    .service("RelatedProductService",['$http',RelatedProductService])
+    .service("HomePageService",["$http",HomePageService]);
 
 app.run(['$transitions','jwtHelper',function($transitions,jwtHelper){
     $transitions.onStart({},function(transition){
@@ -249,7 +259,7 @@ app.run(['$transitions','jwtHelper',function($transitions,jwtHelper){
 }]);
 
 app.controller("NavbarController",['$scope','$state','AuthService',NavbarController])
-    .controller("HomePageController",['$scope','ProductService','CategoryService',HomePageController])
+    .controller("HomePageController",['$scope','ProductService','CategoryService',"HomePageService",HomePageController])
     .controller("CardController",['$scope',CardController])
     .controller("ProductDetailController",['$scope','$stateParams','ProductService',ProductDetailController])
     .controller("SearchPageController",['$scope','$stateParams','ProductService',SearchPageController])
@@ -269,7 +279,8 @@ app.controller("NavbarController",['$scope','$state','AuthService',NavbarControl
     .controller("CardGridController",['$scope',CardGridController])
     .controller("ForgotPasswordController",['$scope','UserService','toastr','$state',ForgotPasswordController])
     .controller("ChangePasswordController",['$scope','AuthService','UserService','toastr','$state',ChangePasswordController])
-    .controller("ViewUserController",['$scope','UserService',ViewUserController]);
+    .controller("ViewUserController",['$scope','UserService',ViewUserController])
+    .controller("HomePageEditController",["$scope","HomePageService","ProductService",HomePageEditController]);
 
 app.directive("imageUpload",ImageUploadDirective)
     .directive("imageCrop",['$document',ImageCropDirective])
@@ -299,4 +310,5 @@ app.component("app",appComponent)
     .component("tableShopping",tableComponent)
     .component("forgotPassword",forgotPasswordComponent)
     .component("changePassword",changePasswordComponent)
-    .component("viewUser",viewUserComponent);
+    .component("viewUser",viewUserComponent)
+    .component("editHome",homePageEditComponent);

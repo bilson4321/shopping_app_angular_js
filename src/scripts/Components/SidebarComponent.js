@@ -22,6 +22,8 @@ var sidebarComponent={
                    <div class="sidebar-header">
                        <h3>{{userName}}</h3>
                    </div>
+                    <a href="javascript:void(0)" ui-sref="admin">Dashboard</a>
+                    <a href="javascript:void(0)" ui-sref="editHome">Home Page</a>
                     <a href="javascript:void(0)" ui-sref="addProduct">Add Product</a>
                     <a href="javascript:void(0)" ui-sref="viewProduct">View Product</a>
                     <a href="javascript:void(0)" ui-sref="addCategory">Add Category</a>

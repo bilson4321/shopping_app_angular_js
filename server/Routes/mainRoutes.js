@@ -11,6 +11,7 @@ var relatedProuctController=require('./../Controllers/RelatedProductController')
 var userController=require('./../Controllers/UserController');
 var orderController=require('./../Controllers/OrderController');
 var authenticationController=require('./../Controllers/AuthenticationController');
+var homePageController=require('./../Controllers/HomePageController');
 
 router.post('/category',auth,categoryController.createCategory);
 router.get('/category',categoryController.getAllCategory);
@@ -43,5 +44,12 @@ router.post('/authenticate',authenticationController.authenticate);
 router.post('/getQuestion',authenticationController.getQuestion);
 router.post('/getTempToken',authenticationController.getTempToken);
 router.post('/changePassword',authenticationController.changePassword);
+
+router.get('/homePage',homePageController.getHomePageData);
+router.post('/homePage',homePageController.initHomePageData);
+router.post('/addBannerImage',upload.single('image'),homePageController.addBannerImage);
+router.post('/deleteBannerImage',homePageController.deleteBannerImage);
+router.post('/addFeaturedProduct',homePageController.addFeaturedProduct);
+router.post('/removeFeaturedProduct',homePageController.removeFeaturedProduct);
 
 module.exports=router;
