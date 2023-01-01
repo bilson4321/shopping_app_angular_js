@@ -11,13 +11,13 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.9.0",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^8.3.0",
     "babel-preset-latest": "^6.24.1",
     "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
     "gulp-nodemon": "^2.5.0",
-    "webpack": "^4.42.1",
-    "webpack-stream": "^5.2.1"
+    "webpack": "^5.75.0",
+    "webpack-stream": "^7.0.0"
   },
   "dependencies": {
     "@uirouter/angularjs": "^1.0.25",
